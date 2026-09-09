@@ -217,6 +217,8 @@
                 <div class="p-4 bg-red-600 text-white rounded-xl">🎭 Drama</div>
                 <div class="p-4 bg-zinc-800 text-zinc-400 rounded-xl">😒 Hater</div>
                 <div class="p-4 bg-yellow-400 text-black rounded-xl">🌟 Optimista</div>
+                <div class="p-4 bg-blue-600 text-white rounded-xl">🧭 Explorador</div>
+                <div class="p-4 bg-green-500 text-black rounded-xl">🛠️ Constructor</div>
             </div>
         </div>
     </div>
@@ -303,12 +305,14 @@
         }
 
         // MAPA DEL CAOS (CANVAS)
-        let canvas, ctx, painting = false, color = 'blue';
+        let canvas, ctx, painting = false, color = 'blue', mapaInicializado = false;
         function initMapa() {
             canvas = document.getElementById('chaos-canvas');
             ctx = canvas.getContext('2d');
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
+            if (mapaInicializado) return;
+            mapaInicializado = true;
             canvas.addEventListener('mousedown', () => painting = true);
             canvas.addEventListener('mouseup', () => { painting = false; ctx.beginPath(); });
             canvas.addEventListener('mousemove', draw);
