@@ -1,45 +1,72 @@
-# Chalamandra | Magistral Decox
+# Chalamandra Magistral DecoX
 
-**Identidad: Búnker de Soberanía Cognitiva**
+**Decodificar lo complejo. Diseñar lo accionable.**
 
-Insightify Chalamandra no es solo un proyecto de código; es una manifestación digital de la metodología **SRAP** (Scan, Ritmo, Análisis, Presencia). Este repositorio actúa como el sistema nervioso central para la decodificación estratégica, diseñado para transformar el caos en claridad absoluta para mentes del top 1%.
+Chalamandra Magistral DecoX es un laboratorio creativo y metodológico. Desarrolla metodologías, sistemas de análisis y herramientas prácticas para convertir problemas complejos en estructuras comprensibles y procesos accionables.
 
-Nuestra misión es implementar una arquitectura de "IA Local First" que respete la privacidad absoluta (Zero-Egress) mientras potencia la capacidad humana para ver los hilos invisibles que mueven los mercados y las emociones.
+La empresa combina pensamiento estratégico, diseño de sistemas y herramientas de conocimiento para transformar ideas dispersas en estructuras que puedan analizarse, desarrollarse y ponerse en práctica.
 
-## Arquitectura de Identidad
+## Arquitectura de la marca
 
-El siguiente diagrama ilustra el flujo de energía y navegación dentro del ecosistema digital de Chalamandra:
+La marca se entiende en tres niveles:
+
+1. **Identidad:** Chola, Fresa y Malandra son funciones de un mismo sistema.
+    - **Chola, infraestructura:** experiencia, resistencia y realidad.
+    - **Fresa, interfaz:** estética, lenguaje y percepción.
+    - **Malandra, motor:** estrategia, adaptación y lectura del juego.
+2. **Método:** SRAP, Sincronización Ritmo-Acción Presente.
+3. **Productos:** metodologías, herramientas, talleres, consultoría, experiencias interactivas y productos de conocimiento.
+
+El siguiente diagrama resume esta arquitectura:
 
 ```mermaid
 graph TD
-    Main[Insightify Chalamandra: Index 3D] --> Dice[Dado de Metodologías: metodologias.html]
-    Main --> Identity[Identidad: documentos/archetype.md]
-    Main --> Blog[Bitácora Tinta: Blogspot]
+    Main[Chalamandra Magistral DecoX] --> Identity[Identidad]
+    Main --> Method[SRAP: método operativo]
+    Main --> Products[Productos y experiencias]
+    Main --> Site[index.html]
 
-    subgraph "Soberanía Cognitiva"
+    subgraph "Sistema operativo creativo"
     Identity
-    Dice
+    Method
+    Products
     end
 
     style Main fill:#FFB300,stroke:#000,stroke-width:4px
     style Identity fill:#D5006C,color:#fff
-    style Dice fill:#00FF5E,stroke:#333
+    style Method fill:#00FF5E,stroke:#333
 ```
 
-## Componentes del Ecosistema
+## DecoX
 
-*   **Index 3D (El Búnker)**: El punto de entrada visual. Una experiencia inmersiva que demuestra la transición del caos urbano a la estructura nodal organizada.
-*   **Dado de Metodologías**: Un laboratorio táctico interactivo (`metodologias.html`) donde el azar y la intuición se encuentran con herramientas de introspección profunda.
-*   **Identidad y Arquetipo**: Documentación viva (`documentos/archetype.md`) que define los principios inquebrantables de nuestra marca y filosofía.
-*   **Bitácora Tinta**: La voz editorial que conecta la teoría con la práctica en el mundo real.
+**DecoX = Decodificar + X.**
 
-## Filosofía SRAP
+X representa la variable, el problema, el sistema o el contexto que queremos comprender. DecoX parte del análisis para identificar componentes, relaciones, fricciones y posibilidades de intervención.
 
-1.  **S - Scan**: Escaneo profundo del entorno.
-2.  **R - Ritmo**: Sincronización estratégica.
-3.  **A - Análisis**: Decodificación de la raíz.
-4.  **P - Presencia**: Impacto y ejecución.
+El recorrido de trabajo es:
+
+**Analizar → Decodificar → Diseñar → Actuar.**
+
+## SRAP
+
+SRAP significa **Sincronización Ritmo-Acción Presente**. Es el mecanismo operativo de Chalamandra Magistral DecoX:
+
+**Idea → decisión → acción → retroalimentación → ajuste.**
+
+Su objetivo es reducir la distancia innecesaria entre comprender algo y actuar sobre ello. **Latencia 0** es una meta metodológica, no una promesa literal de tiempo cero.
+
+## Ecosistema
+
+* **Página principal** (`index.html`): presentación de Chalamandra Magistral DecoX y su sistema de trabajo.
+* **Metodologías:** FDM, SRAP y futuros sistemas propios.
+* **Herramientas:** Axiomas Operativos, plantillas, kits y productos de conocimiento.
+* **Productos y experiencias:** talleres, consultoría, arquitectura de marca, diseño de sistemas y experiencias interactivas de pensamiento estratégico.
+* **Manifiesto:** documento fundador disponible en [chalamandramagistral.com](https://chalamandramagistral.com).
+
+## Alcance técnico
+
+Este repositorio contiene un sitio estático HTML, CSS y JavaScript. La página principal incorpora una visualización interactiva desarrollada con Three.js. No utiliza Node.js ni dependencias npm locales.
 
 ---
 
-*© 2026 Chalamandra. Magistral .*
+*© 2026 Chalamandra Magistral DecoX.*
