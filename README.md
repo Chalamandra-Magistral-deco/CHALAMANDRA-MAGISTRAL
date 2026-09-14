@@ -73,7 +73,6 @@ Su objetivo es reducir la distancia innecesaria entre comprender algo y actuar s
 * **Metodologías:** SRAP y futuros sistemas propios.
 * **Herramientas:** plantillas, kits y productos de conocimiento.
 * **Productos y experiencias:** talleres, consultoría, arquitectura de marca, diseño de sistemas y experiencias interactivas de pensamiento estratégico.
-* **Estrategia comercial:** [documentos/estrategia-comercial.md](documentos/estrategia-comercial.md), mapa de dinero, ofertas iniciales, GBP, experimento de 30 días y control de rentabilidad.
 * **Manifiesto:** documento fundador disponible en [chalamandramagistral.com](https://chalamandramagistral.com).
 
 ## Alcance técnico
