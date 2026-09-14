@@ -259,11 +259,6 @@
         }
     </style>
 
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body class="antialiased selection:bg-[#FFB300] selection:text-black bg-urban">
@@ -662,7 +657,7 @@
                         animationId = requestAnimationFrame(anim);
                     };
 
-                    // ⚡ Bolt Optimization: Pause animation when off-screen to save resources
+                    // Pause animation when off-screen to save resources
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
