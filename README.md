@@ -83,3 +83,4 @@ Este repositorio contiene un sitio estático HTML, CSS y JavaScript. La página 
 ---
 
 *© 2026 Chalamandra Magistral DecoX.*
+i94
