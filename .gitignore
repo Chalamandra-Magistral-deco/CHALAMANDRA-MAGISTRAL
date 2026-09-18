@@ -37,3 +37,4 @@ __pycache__/
 *.pyc
 .env
 test_*.py
+node_modules/
