@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MRHKQXBZ');</script>
+    <!-- End Google Tag Manager -->
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17523348063"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-17523348063');
+        </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chalamandra Magistral DecoX | Decodificar, diseñar, ejecutar</title>
+    
+    <meta name="description" content="Laboratorio creativo y metodológico para convertir experiencia, pensamiento estratégico y diseño en sistemas propios de acción.">
+    <meta name="keywords" content="Chalamandra Magistral DecoX, SRAP, metodologías, pensamiento estratégico, diseño de sistemas, herramientas de acción">
+    <meta name="author" content="Chalamandra Magistral DecoX">
+    
+    <meta property="og:title" content="Chalamandra Magistral DecoX">
+    <meta property="og:description" content="Decodificar el sistema. Rediseñar la jugada. Ejecutar la acción.">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --chala-mandala: #FFB300;
+            --chala-rosa:    #D5006C;
+            --chala-verde:   #00FF5E;
+            --chala-tinta:   #050505;
+            --chala-rojo:    #FF0000;
+            --chala-azul:    #1A237E;
+            --chala-gris:    #B0BEC5;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--chala-tinta);
+            color: var(--chala-gris);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        h1, h2, h3, .font-orbitron { font-family: 'Orbitron', sans-serif; }
+
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(to right, var(--chala-mandala), var(--chala-rosa));
+            z-index: 1000;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 179, 0, 0.08), transparent);
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            pointer-events: none;
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        .text-glow-mandala { text-shadow: 0 0 20px var(--chala-mandala); }
+        .text-glow-verde { text-shadow: 0 0 20px var(--chala-verde); }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(5, 5, 5, 0.95) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 179, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-magistral {
+            background: linear-gradient(90deg, var(--chala-rosa), var(--chala-rojo));
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(213, 0, 108, 0.3);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-magistral:hover {
+            box-shadow: 0 0 30px var(--chala-rosa);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 75vh;
+            min-height: 400px;
+            max-height: 800px;
+            overflow: hidden;
+            border-radius: 2.5rem;
+            background: #000;
+            border: 2px solid rgba(255, 179, 0, 0.15);
+            touch-action: none;
+        }
+
+        .arquetipo-border {
+            border: 1px solid transparent;
+            background: linear-gradient(var(--chala-tinta), var(--chala-tinta)) padding-box,
+                        linear-gradient(45deg, var(--chala-rosa), var(--chala-mandala)) border-box;
+        }
+
+        .bg-urban {
+            background-image: radial-gradient(circle at 2px 2px, rgba(176, 190, 197, 0.05) 1px, transparent 0);
+            background-size: 50px 50px;
+        }
+
+        .title-magistral {
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            font-weight: 900;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Optimizaciones móviles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            h2 {
+                font-size: 2.5rem !important;
+            }
+            
+            .text-6xl { font-size: 2.5rem; }
+            .text-5xl { font-size: 2rem; }
+            .text-4xl { font-size: 1.75rem; }
+            .text-3xl { font-size: 1.5rem; }
+            
+            .glass-card {
+                padding: 1.5rem !important;
+                border-radius: 1.5rem !important;
+            }
+            
+            .btn-magistral {
+                padding: 0.75rem 1.5rem !important;
+                font-size: 0.75rem !important;
+            }
+            
+            #canvas-container {
+                height: 60vh !important;
+                min-height: 350px !important;
+                border-radius: 1rem !important;
+            }
+            
+            #canvas-container .absolute {
+                position: relative !important;
+                bottom: auto !important;
+                left: auto !important;
+                right: auto !important;
+                padding: 1rem !important;
+                margin-top: 1rem !important;
+            }
+            
+            .arquetipo-border {
+                padding: 1.5rem !important;
+                border-radius: 2rem !important;
+                margin: 0 1rem;
+            }
+            
+            footer {
+                padding: 3rem 1rem !important;
+            }
+            
+            /* Mejorar toques */
+            button, a {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Ajustes específicos para la sección experiencia */
+            #experiencia .flex.flex-col.md\:flex-row {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+            
+            #experiencia .text-right {
+                text-align: center !important;
+                margin-top: 1rem !important;
+            }
+            
+            /* Reposicionar controles del canvas */
+            .canvas-controls {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+                margin-top: 1rem !important;
+                width: 100% !important;
+            }
+            
+            .canvas-controls > div {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .canvas-controls button {
+                width: 100% !important;
+                padding: 1rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem !important;
+            }
+            
+            #canvas-container {
+                height: 50vh !important;
+                min-height: 300px !important;
+            }
+            
+            .grid-cols-1 > * {
+                margin-bottom: 1rem;
+            }
+            
+            /* Header ajustes */
+            header .text-6xl {
+                font-size: 2rem !important;
+            }
+            
+            header .text-3xl {
+                font-size: 1.5rem !important;
+            }
+        }
+        
+        /* Clases específicas para los controles del canvas */
+        .canvas-info-box {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(3xl);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+
+    <style>
+        .skip-link {
+            position: absolute;
+            top: -60px;
+            left: 8px;
+            background: #ff4d9e;
+            color: #000;
+            padding: 10px 20px;
+            z-index: 9999;
+            text-decoration: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: top 0.15s ease;
+        }
+        .skip-link:focus { top: 8px; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://www.chalamandramagistral.com/">
+    <meta property="og:url" content="https://www.chalamandramagistral.com/">
+    <meta property="og:site_name" content="Chalamandra Magistral DecoX">
+    <meta property="og:locale" content="es_MX">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chalamandra Magistral DecoX">
+    <meta name="twitter:description" content="Decodificar el sistema. Rediseñar la jugada. Ejecutar la acción.">
+</head>
+
+<body class="antialiased selection:bg-[#FFB300] selection:text-black bg-urban">
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRHKQXBZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="scroll-progress"></div>
+    <div class="scanline"></div>
+
+    <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-[#1A237E]/95 backdrop-blur-xl">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4 md:px-8">
+            <a href="https://chalamandramagistral.com" class="flex items-center space-x-3 group">
+                <span class="text-3xl">🦎</span>
+                <span class="text-xl md:text-2xl font-bold text-white tracking-widest font-orbitron uppercase">CHALAMANDRA MAGISTRAL DECOX</span>
+            </a>
+            <div class="hidden md:flex space-x-8 font-bold text-[10px] tracking-[0.3em] text-[#B0BEC5]">
+                <a href="#experiencia" class="hover:text-[#FFB300] transition-colors uppercase">Decodificador</a>
+                <a href="#srap" class="hover:text-[#FFB300] transition-colors uppercase">SRAP</a>
+                <a href="#arquetipo" class="hover:text-[#FFB300] transition-colors uppercase">Tres capas</a>
+                <a href="#oferta" class="hover:text-[#FFB300] transition-colors uppercase">Oferta</a>
+                <a href="#ecosistema" class="hover:text-[#FFB300] transition-colors uppercase">Sistemas</a>
+                <a href="https://chalamandramagistral.com" class="hover:text-[#FFB300] transition-colors uppercase">Manifiesto</a>
+            </div>
+            <a href="#oferta" class="btn-magistral font-black rounded-lg text-[10px] px-6 py-2.5 text-center tracking-tighter uppercase">
+                VER OFERTA
+            </a>
+        </div>
+    </nav>
+
+    <main id="main">
+        <header class="relative min-h-screen flex items-center justify-center pt-24 px-4 overflow-hidden">
+            <div class="container mx-auto text-center z-10">
+                <div class="inline-block mb-8 px-4 py-2 rounded-full border border-[#FFB300]/30 bg-[#FFB300]/10 text-[#FFB300] text-[11px] font-black tracking-[0.3em] uppercase">
+                    Sistema operativo creativo
+                </div>
+                
+                <h1 class="text-4xl md:text-[8rem] font-black mb-6 leading-none tracking-tighter title-magistral">
+                    <span class="block text-white mb-2 font-light tracking-widest text-base md:text-2xl opacity-60">CHALAMANDRA MAGISTRAL</span>
+                    <span class="block text-[#FF0000] italic leading-tight text-5xl md:text-[8rem]">DECOX</span>
+                    <span class="block text-white text-xs md:text-base my-4 font-light tracking-[1.5em] opacity-30 italic">DECODIFICAR LO</span>
+                    <span class="block text-[#00FF5E] text-glow-verde leading-tight text-5xl md:text-[8rem]">COMPLEJO</span>
+                    <span class="block text-white mt-4 font-bold tracking-tighter text-2xl md:text-5xl opacity-90">DISEÑAR LO ACCIONABLE</span>
+                </h1>
+                
+                <p class="text-sm md:text-xl text-[#B0BEC5] mb-8 max-w-4xl mx-auto leading-relaxed font-light px-4">
+                    Un laboratorio creativo y metodológico para convertir experiencia, pensamiento estratégico y diseño en <span class="text-white font-bold">sistemas propios de acción</span>.
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
+                    <a href="https://chalamandramagistral.com" class="bg-[#FFB300] text-black font-black py-3 px-8 rounded-full uppercase tracking-widest text-xs hover:bg-white transition-all shadow-xl">
+                        Leer el manifiesto
+                    </a>
+                    <a href="#oferta" class="border border-[#FFB300]/40 text-[#FFB300] font-black py-3 px-8 rounded-full uppercase tracking-widest text-xs hover:bg-[#FFB300]/10 transition-all shadow-xl" data-cta="hero-oferta">
+                        Ver cómo trabajar
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <section id="experiencia" class="py-16 md:py-32 reveal">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-end justify-between mb-8 md:mb-16 gap-4 text-center md:text-left">
+                    <div class="max-w-2xl">
+                        <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter italic title-magistral">¿Qué ocurre cuando falta <span class="text-[#FFB300]">estructura?</span></h2>
+                        <p class="text-[#B0BEC5] mt-4 text-base md:text-lg font-light italic">
+                            El problema no siempre necesita más información. A veces necesita una estructura diferente.
+                        </p>
+                    </div>
+                    <div class="text-center md:text-right mt-4 md:mt-0">
+                        <span id="demo-status" class="block text-sm font-mono font-black text-[#FF0000] uppercase tracking-widest mb-1 animate-pulse">ANÁLISIS → ACCIÓN</span>
+                        <span class="text-[11px] text-[#FFB300] font-mono opacity-60 uppercase">Comprender • Estructurar • Actuar</span>
+                    </div>
+                </div>
+
+                <div class="glass-card relative p-2 md:p-3 rounded-xl md:rounded-[3.5rem] overflow-hidden shadow-2xl">
+                    <div id="canvas-container">
+                        <!-- La esfera 3D se renderizará aquí -->
+                    </div>
+                    
+                    <!-- Controles reposicionados PARA MÓVIL -->
+                    <div class="md:hidden canvas-controls p-4">
+                        <div class="canvas-info-box">
+                            <h5 class="text-[#FFB300] font-black uppercase tracking-[0.3em] text-[10px] mb-2 md:mb-4">Lectura DecoX</h5>
+                            <p id="demo-desc" class="text-sm md:text-base text-[#B0BEC5] leading-relaxed font-light italic">
+                                La pregunta no es “¿cómo puedo esforzarme más?” sino “¿qué parte del sistema necesita cambiar?”
+                            </p>
+                        </div>
+                        <button id="toggle-demo-mobile" class="btn-magistral font-black py-4 w-full rounded-full tracking-[0.2em] text-sm uppercase shadow-2xl active:scale-95 transition-all">
+                            ORDENAR EL SISTEMA
+                        </button>
+                    </div>
+                    
+                    <!-- Controles para escritorio (mantienen posición original) -->
+                    <div class="hidden md:block absolute bottom-10 left-10 right-10 z-20 flex flex-col md:flex-row justify-between items-center gap-8">
+                        <div class="bg-[#050505]/95 backdrop-blur-3xl p-10 rounded-[2.5rem] border border-white/10 max-w-md shadow-2xl">
+                            <h5 class="text-[#FFB300] font-black uppercase tracking-[0.3em] text-[10px] mb-4">Lectura DecoX</h5>
+                            <p id="demo-desc-desktop" class="text-base text-[#B0BEC5] leading-relaxed font-light italic">
+                                La pregunta no es “¿cómo puedo esforzarme más?” sino “¿qué parte del sistema necesita cambiar?”
+                            </p>
+                        </div>
+                        <button id="toggle-demo-desktop" class="btn-magistral font-black py-7 px-20 rounded-full tracking-[0.2em] text-sm uppercase shadow-2xl active:scale-95 transition-all">
+                            ORDENAR EL SISTEMA
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="oferta" class="py-16 md:py-32 bg-[#050505]/80 relative reveal">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mb-10 md:mb-16">
+                    <span class="text-[#00FF5E] font-mono text-[10px] tracking-[0.4em] uppercase">Una siguiente acción, no un catálogo</span>
+                    <h2 class="text-3xl md:text-6xl font-black text-white uppercase italic tracking-tighter title-magistral mt-4">Elige el nivel de <span class="text-[#FFB300]">intervención</span></h2>
+                    <p class="text-[#B0BEC5] mt-5 text-base md:text-lg leading-relaxed">Tres formas de convertir un problema complejo en una decisión utilizable. Los precios son rangos iniciales de validación y se confirman según alcance, modalidad y país.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-8 max-w-7xl mx-auto">
+                    <article class="glass-card p-6 md:p-9 rounded-2xl border-t-4 border-[#FFB300] flex flex-col">
+                        <span class="text-[#FFB300] font-mono text-[10px] tracking-[0.3em] uppercase">Entrada · 90–150 EUR</span>
+                        <h3 class="text-2xl md:text-3xl text-white font-black uppercase italic mt-4 mb-4">Diagnóstico DecoX</h3>
+                        <p class="text-[#B0BEC5] leading-relaxed mb-6">Para quien tiene una idea, marca o proyecto bloqueado y necesita localizar la fricción principal.</p>
+                        <ul class="text-sm text-[#B0BEC5] space-y-2 mb-8 flex-grow">
+                            <li>• Sesión de diagnóstico</li>
+                            <li>• Mapa de problema y tres acciones priorizadas</li>
+                            <li>• Resumen escrito de una página</li>
+                        </ul>
+                        <a href="mailto:decoxmagistral@gmail.com?subject=Diagn%C3%B3stico%20DecoX" class="btn-magistral py-4 rounded-xl font-black uppercase tracking-widest text-xs" data-cta="diagnostico-decox">Ver alcance y solicitar</a>
+                    </article>
+
+                    <article class="glass-card p-6 md:p-9 rounded-2xl border-t-4 border-[#D5006C] flex flex-col">
+                        <span class="text-[#D5006C] font-mono text-[10px] tracking-[0.3em] uppercase">Principal · 350–900 EUR</span>
+                        <h3 class="text-2xl md:text-3xl text-white font-black uppercase italic mt-4 mb-4">Workshop SRAP</h3>
+                        <p class="text-[#B0BEC5] leading-relaxed mb-6">Para equipos o profesionales que necesitan pasar de comprender el problema a coordinar acciones sobre un caso real.</p>
+                        <ul class="text-sm text-[#B0BEC5] space-y-2 mb-8 flex-grow">
+                            <li>• Sesión práctica en vivo</li>
+                            <li>• Hoja de trabajo SRAP</li>
+                            <li>• Registro de acciones y ajustes</li>
+                        </ul>
+                        <a href="mailto:decoxmagistral@gmail.com?subject=Workshop%20SRAP" class="btn-magistral py-4 rounded-xl font-black uppercase tracking-widest text-xs" data-cta="workshop-srap">Ver alcance y solicitar</a>
+                    </article>
+
+                    <article class="glass-card p-6 md:p-9 rounded-2xl border-t-4 border-[#00FF5E] flex flex-col">
+                        <span class="text-[#00FF5E] font-mono text-[10px] tracking-[0.3em] uppercase">Premium · desde 1.500 EUR</span>
+                        <h3 class="text-2xl md:text-3xl text-white font-black uppercase italic mt-4 mb-4">Diseño de sistema</h3>
+                        <p class="text-[#B0BEC5] leading-relaxed mb-6">Para ordenar identidad, método, oferta y experiencia dentro de una arquitectura que pueda implementarse.</p>
+                        <ul class="text-sm text-[#B0BEC5] space-y-2 mb-8 flex-grow">
+                            <li>• Diagnóstico y mapa del sistema</li>
+                            <li>• Decisiones de arquitectura</li>
+                            <li>• Documento de implementación por alcance</li>
+                        </ul>
+                        <a href="mailto:decoxmagistral@gmail.com?subject=Dise%C3%B1o%20de%20sistema" class="btn-magistral py-4 rounded-xl font-black uppercase tracking-widest text-xs" data-cta="diseno-sistema">Ver alcance y solicitar</a>
+                    </article>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="srap" class="py-16 md:py-32 bg-black/60 relative reveal">
+            <div class="container mx-auto px-4">
+                <div class="mb-12 md:mb-24 text-center">
+                    <h2 class="text-3xl md:text-6xl font-black text-white tracking-tighter uppercase italic title-magistral">
+                        SRAP: <span class="text-[#FFB300]">idea → decisión → acción</span>
+                    </h2>
+                    <p class="text-[#B0BEC5] mt-4 md:mt-6 max-w-2xl mx-auto border-t border-[#FFB300]/30 pt-4 md:pt-8 text-base md:text-lg font-light italic">
+                        Sincronización Ritmo-Acción Presente: un mecanismo para reducir la distancia entre comprender algo y actuar sobre ello.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                    <article class="glass-card p-6 md:p-10 rounded-xl md:rounded-[2.5rem] border-t-4 border-[#FFB300]">
+                        <div class="text-4xl md:text-6xl font-black text-[#FFB300] mb-4 md:mb-8 font-orbitron">S</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 uppercase tracking-tighter">Percepción</h3>
+                        <p class="text-sm leading-relaxed text-[#B0BEC5]">Observar el contexto, sus variables y aquello que está produciendo fricción.</p>
+                    </article>
+                    <article class="glass-card p-6 md:p-10 rounded-xl md:rounded-[2.5rem] border-t-4 border-[#D5006C]">
+                        <div class="text-4xl md:text-6xl font-black text-[#D5006C] mb-4 md:mb-8 font-orbitron">R</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 uppercase tracking-tighter">Decisión</h3>
+                        <p class="text-sm leading-relaxed text-[#B0BEC5]">Ordenar la información y elegir una dirección con intención.</p>
+                    </article>
+                    <article class="glass-card p-6 md:p-10 rounded-xl md:rounded-[2.5rem] border-t-4 border-[#00FF5E]">
+                        <div class="text-4xl md:text-6xl font-black text-[#00FF5E] mb-4 md:mb-8 font-orbitron">A</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 uppercase tracking-tighter">Acción</h3>
+                        <p class="text-sm leading-relaxed text-[#B0BEC5]">Convertir la decisión en un proceso que pueda ejecutarse y observarse.</p>
+                    </article>
+                    <article class="glass-card p-6 md:p-10 rounded-xl md:rounded-[2.5rem] border-t-4 border-[#1A237E]">
+                        <div class="text-4xl md:text-6xl font-black text-[#1A237E] mb-4 md:mb-8 font-orbitron">P</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 uppercase tracking-tighter">Ajuste</h3>
+                        <p class="text-sm leading-relaxed text-[#B0BEC5]">Leer la retroalimentación, medir lo ocurrido y rediseñar la siguiente jugada.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="arquetipo" class="py-16 md:py-32 relative reveal">
+            <div class="container mx-auto px-4">
+                <div class="arquetipo-border p-6 md:p-24 rounded-3xl md:rounded-[5rem] max-w-6xl mx-auto flex flex-col md:flex-row gap-8 md:gap-20 items-center">
+                    <div class="w-full md:w-1/3 text-center">
+                        <div class="text-8xl md:text-[12rem] mb-6 md:mb-12 drop-shadow-[0_0_30px_rgba(255,179,0,0.3)]">🦎</div>
+                        <h2 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-tight font-orbitron title-magistral text-glow-mandala">TRES CAPAS. UN SOLO SISTEMA.</h2>
+                    </div>
+                    <div class="w-full md:w-2/3 space-y-6 md:space-y-12">
+                        <p class="text-xl md:text-3xl text-white font-light leading-snug italic border-l-4 border-[#D5006C] pl-4 md:pl-8">
+                            Chola es la infraestructura. Fresa es la interfaz. Malandra es el motor. No son personajes separados: son funciones de un mismo sistema.
+                        </p>
+                        <a href="https://chalamandramagistral.com" target="_blank" rel="noopener noreferrer" class="btn-magistral font-black rounded-lg text-[10px] px-6 md:px-8 py-3 md:py-4 text-center tracking-widest uppercase inline-block mt-4">
+                            IR A MANIFIESTO
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ecosistema" class="py-16 md:py-32 bg-black/40 reveal">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-black mb-12 md:mb-24 text-center text-white uppercase italic tracking-tighter title-magistral">
+                    Ecosistema <span class="text-[#FFB300]">metodológico y creativo</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 max-w-6xl mx-auto">
+                    <div class="glass-card p-6 md:p-14 rounded-3xl md:rounded-[4rem] border-l-8 border-[#D5006C] flex flex-col justify-between group">
+                        <div>
+                            <div class="text-xs font-mono text-[#D5006C] mb-4 md:mb-8 uppercase tracking-[0.6em] font-black">Metodologías</div>
+                            <h3 class="text-3xl md:text-5xl font-black text-white mb-4 md:mb-8 uppercase italic font-orbitron">FDM · SRAP</h3>
+                            <p class="text-[#B0BEC5] text-base md:text-xl leading-relaxed mb-6 md:mb-12 font-light">Sistemas propios para comprender problemas complejos y convertirlos en procesos de acción.</p>
+                        </div>
+                        <a href="#experiencia" class="btn-magistral py-4 md:py-6 w-full rounded-2xl font-black uppercase tracking-widest shadow-2xl text-xs md:text-sm">
+                            Conocer metodologías
+                        </a>
+                    </div>
+
+                    <div class="glass-card p-6 md:p-14 rounded-3xl md:rounded-[4rem] border-l-8 border-[#1A237E] flex flex-col justify-between group">
+                        <div>
+                            <div class="text-xs font-mono text-[#1A237E] mb-4 md:mb-8 uppercase tracking-[0.6em] font-black">Herramientas y productos</div>
+                            <h3 class="text-3xl md:text-5xl font-black text-white mb-4 md:mb-8 uppercase italic font-orbitron">Axiomas Operativos</h3>
+                            <p class="text-[#B0BEC5] text-base md:text-xl leading-relaxed mb-6 md:mb-12 font-light">Herramientas, plantillas, kits y productos de conocimiento para pasar de la idea al proceso.</p>
+                        </div>
+                        <a href="#srap" class="border-2 border-[#1A237E] text-[#1A237E] hover:bg-[#1A237E] hover:text-white text-center py-4 md:py-6 w-full rounded-2xl font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 md:gap-4 text-xs md:text-sm">
+                            Explorar herramientas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 md:py-24 border-t border-white/5 bg-black/90 text-center px-4">
+        <div class="mb-6 md:mb-10 text-5xl grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">🦎</div>
+        <p class="text-[#B0BEC5] text-[11px] font-mono tracking-[0.6em] uppercase font-black">
+            © 2026 Chalamandra Magistral DecoX • Decodificar, diseñar, ejecutar
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Barra de Progreso
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('scroll-progress').style.width = scrolled + "%";
+            });
+
+            // Animaciones de Revelado
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                reveals.forEach(reveal => {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
+                });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+
+            // Three.js Core - Optimizado para móvil
+            const container = document.getElementById('canvas-container');
+            const toggleBtnMobile = document.getElementById('toggle-demo-mobile');
+            const toggleBtnDesktop = document.getElementById('toggle-demo-desktop');
+            const statusText = document.getElementById('demo-status');
+            const descTextMobile = document.getElementById('demo-desc');
+            const descTextDesktop = document.getElementById('demo-desc-desktop');
+
+            let scene, camera, renderer, particles, networkLines;
+            let mouseX = 0, mouseY = 0;
+            let isClarity = false;
+            let transitionFactor = 0;
+
+            // Reducir partículas en móvil para mejor rendimiento
+            const isMobile = window.innerWidth < 768;
+            const PARTICLE_COUNT = isMobile ? 1000 : 3000;
+            const chaosPositions = new Float32Array(PARTICLE_COUNT * 3);
+            const clarityPositions = new Float32Array(PARTICLE_COUNT * 3);
+            const currentPositions = new Float32Array(PARTICLE_COUNT * 3);
+
+            function createNodeTexture() {
+                const canvas = document.createElement('canvas');
+                canvas.width = isMobile ? 64 : 128;
+                canvas.height = isMobile ? 64 : 128;
+                const ctx = canvas.getContext('2d');
+                const size = isMobile ? 32 : 64;
+                const grad = ctx.createRadialGradient(size, size, 0, size, size, size);
+                grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                grad.addColorStop(0.3, 'rgba(255, 255, 255, 0.8)');
+                grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctx.fillStyle = grad;
+                ctx.arc(size, size, size - 2, 0, Math.PI * 2);
+                ctx.fill();
+                return new THREE.CanvasTexture(canvas);
+            }
+
+            function updateUI() {
+                const toggleText = isClarity ? "REINICIAR ESCANEO" : "TRANSFORMAR EN CLARIDAD";
+                const statusTextContent = isClarity ? "ESTADO: CLARIDAD MAGISTRAL" : "ESTADO: CAOS URBANO";
+                const statusColor = isClarity ? "#00FF5E" : "#FF0000";
+                const descContent = isClarity ? 
+                    "Red nodal estabilizada. Estructura detectada." : 
+                    "Variables mezcladas. Separa hechos, interpretaciones y reglas antes de decidir la siguiente jugada.";
+                
+                statusText.innerText = statusTextContent;
+                statusText.style.color = statusColor;
+                
+                if (descTextMobile) descTextMobile.innerText = descContent;
+                if (descTextDesktop) descTextDesktop.innerText = descContent;
+                
+                if (toggleBtnMobile) toggleBtnMobile.innerText = toggleText;
+                if (toggleBtnDesktop) toggleBtnDesktop.innerText = toggleText;
+                
+                particles.material.color.set(isClarity ? 0x00FF5E : 0xFF0000);
+            }
+
+            function init3D() {
+                try {
+                    scene = new THREE.Scene();
+                    camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 1, 1000);
+                    camera.position.z = 50;
+
+                    renderer = new THREE.WebGLRenderer({ 
+                        antialias: !isMobile,
+                        alpha: true,
+                        powerPreference: "high-performance"
+                    });
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+                    container.appendChild(renderer.domElement);
+
+                    for(let i=0; i < PARTICLE_COUNT; i++) {
+                        const i3 = i * 3;
+                        chaosPositions[i3] = (Math.random() - 0.5) * 120;
+                        chaosPositions[i3+1] = (Math.random() - 0.5) * 120;
+                        chaosPositions[i3+2] = (Math.random() - 0.5) * 120;
+
+                        const phi = Math.acos(-1 + (2 * i) / PARTICLE_COUNT);
+                        const theta = Math.sqrt(PARTICLE_COUNT * Math.PI) * phi;
+                        const r = 24;
+                        clarityPositions[i3] = r * Math.cos(theta) * Math.sin(phi);
+                        clarityPositions[i3+1] = r * Math.sin(theta) * Math.sin(phi);
+                        clarityPositions[i3+2] = r * Math.cos(phi);
+
+                        currentPositions[i3] = chaosPositions[i3];
+                        currentPositions[i3+1] = chaosPositions[i3+1];
+                        currentPositions[i3+2] = chaosPositions[i3+2];
+                    }
+
+                    const geo = new THREE.BufferGeometry();
+                    geo.setAttribute('position', new THREE.BufferAttribute(currentPositions, 3));
+                    particles = new THREE.Points(geo, new THREE.PointsMaterial({
+                        size: isMobile ? 1.5 : 2.2,
+                        map: createNodeTexture(),
+                        transparent: true,
+                        opacity: 1,
+                        blending: THREE.AdditiveBlending,
+                        depthWrite: false,
+                        color: 0xFF0000
+                    }));
+                    scene.add(particles);
+
+                    const lineIndices = [];
+                    const lineStep = isMobile ? 40 : 25;
+                    for(let i=0; i<PARTICLE_COUNT; i+=lineStep) {
+                        for(let j=0; j<(isMobile ? 4 : 6); j++) {
+                            lineIndices.push(i, (i + Math.floor(Math.random() * 60)) % PARTICLE_COUNT);
+                        }
+                    }
+                    const lineGeo = new THREE.BufferGeometry();
+                    lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(PARTICLE_COUNT * 3), 3));
+                    lineGeo.setIndex(lineIndices);
+                    networkLines = new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({
+                        color: 0x00FF5E,
+                        transparent: true,
+                        opacity: 0,
+                        blending: THREE.AdditiveBlending
+                    }));
+                    scene.add(networkLines);
+
+                    // Interacción táctil para móvil
+                    if (isMobile) {
+                        container.addEventListener('touchmove', (e) => {
+                            e.preventDefault();
+                            const rect = container.getBoundingClientRect();
+                            const touch = e.touches[0];
+                            mouseX = (touch.clientX - rect.left - rect.width/2) / 50;
+                            mouseY = (touch.clientY - rect.top - rect.height/2) / 50;
+                        }, { passive: false });
+                    }
+
+                    // Interacción con mouse para desktop
+                    container.addEventListener('mousemove', (e) => {
+                        const rect = container.getBoundingClientRect();
+                        mouseX = (e.clientX - rect.left - rect.width/2) / 70;
+                        mouseY = (e.clientY - rect.top - rect.height/2) / 70;
+                    });
+
+                    // Configurar botones (ambos funcionan igual)
+                    const toggleButtons = [];
+                    if (toggleBtnMobile) toggleButtons.push(toggleBtnMobile);
+                    if (toggleBtnDesktop) toggleButtons.push(toggleBtnDesktop);
+                    
+                    toggleButtons.forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            isClarity = !isClarity;
+                            updateUI();
+                        });
+                    });
+
+                    let animationId;
+                    const anim = () => {
+                        const target = isClarity ? 1 : 0;
+                        transitionFactor += (target - transitionFactor) * 0.05;
+                        const pos = particles.geometry.attributes.position.array;
+                        const lp = networkLines.geometry.attributes.position.array;
+                        for(let i=0; i<PARTICLE_COUNT; i++) {
+                            const i3 = i*3;
+                            pos[i3] += ((chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor) - pos[i3]) * 0.08;
+                            pos[i3+1] += ((chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor) - pos[i3+1]) * 0.08;
+                            pos[i3+2] += ((chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor) - pos[i3+2]) * 0.08;
+                            lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+                        }
+                        particles.geometry.attributes.position.needsUpdate = true;
+                        networkLines.geometry.attributes.position.needsUpdate = true;
+                        networkLines.material.opacity = transitionFactor * 0.35;
+                        particles.rotation.y += 0.0025;
+                        networkLines.rotation.y += 0.0025;
+                        camera.position.x += (mouseX - camera.position.x) * 0.05;
+                        camera.position.y += (-mouseY - camera.position.y) * 0.05;
+                        camera.lookAt(scene.position);
+                        renderer.render(scene, camera);
+                        animationId = requestAnimationFrame(anim);
+                    };
+
+                    // ⚡ Bolt Optimization: Pause animation when off-screen to save resources
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                if (!animationId) anim();
+                            } else {
+                                if (animationId) {
+                                    cancelAnimationFrame(animationId);
+                                    animationId = null;
+                                }
+                            }
+                        });
+                    }, { rootMargin: '200px' });
+                    observer.observe(container);
+
+                    // Redimensionar responsivo
+                    window.addEventListener('resize', () => {
+                        camera.aspect = container.clientWidth / container.clientHeight;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(container.clientWidth, container.clientHeight);
+                    });
+
+                } catch (e) {
+                    console.error("Error al inicializar WebGL:", e);
+                    container.innerHTML = '<div class="text-center text-white p-8"><p>La visualización 3D no está disponible en este dispositivo.</p></div>';
+                }
+            }
+            init3D();
+        });
+    </script>
+</body>
+</html>
