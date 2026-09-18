@@ -23,7 +23,7 @@ serviceAccount*.json
 .DS_Store
 Thumbs.db
 
-# --- Entornos Python (por si algún día entra código) ---
+# --- Entornos Python ---
 venv/
 gemini-env/
 __pycache__/
