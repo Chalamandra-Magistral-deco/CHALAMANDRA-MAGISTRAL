@@ -1,8 +1,30 @@
-# --- Blindaje de Credenciales y Claves ---
+# --- Original (recuperado) ---
+.bash_history
+*.env
+*.log
+
+# --- Secretos y credenciales ---
 adc.json
 keys.json
 *credentials*.json
-.config/
+serviceAccount*.json
+*-firebase-adminsdk-*.json
 .env*
 *.pem
 *.key
+
+# --- Estado local de agentes / editores ---
+.mcp.json
+.claude/
+.copilot/
+.agents/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Entornos Python (por si algún día entra código) ---
+venv/
+gemini-env/
+__pycache__/
+*.pyc
