@@ -279,9 +279,44 @@
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
+    <style>
+        .skip-link {
+            position: absolute;
+            top: -60px;
+            left: 8px;
+            background: #ff4d9e;
+            color: #000;
+            padding: 10px 20px;
+            z-index: 9999;
+            text-decoration: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: top 0.15s ease;
+        }
+        .skip-link:focus { top: 8px; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://www.chalamandramagistral.com/">
+    <meta property="og:url" content="https://www.chalamandramagistral.com/">
+    <meta property="og:site_name" content="Chalamandra Magistral DecoX">
+    <meta property="og:locale" content="es_MX">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chalamandra Magistral DecoX">
+    <meta name="twitter:description" content="Decodificar el sistema. Rediseñar la jugada. Ejecutar la acción.">
 </head>
 
 <body class="antialiased selection:bg-[#FFB300] selection:text-black bg-urban">
+    <a href="#main" class="skip-link">Saltar al contenido</a>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRHKQXBZ"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -309,7 +344,7 @@
         </div>
     </nav>
 
-    <main>
+    <main id="main">
         <header class="relative min-h-screen flex items-center justify-center pt-24 px-4 overflow-hidden">
             <div class="container mx-auto text-center z-10">
                 <div class="inline-block mb-8 px-4 py-2 rounded-full border border-[#FFB300]/30 bg-[#FFB300]/10 text-[#FFB300] text-[11px] font-black tracking-[0.3em] uppercase">

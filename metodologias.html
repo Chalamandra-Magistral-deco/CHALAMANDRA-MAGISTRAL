@@ -74,6 +74,27 @@
         @keyframes fire { from { box-shadow: 0 0 10px #ef4444; } to { box-shadow: 0 0 30px #ff8500; } }
         canvas { touch-action: none; cursor: crosshair; }
     </style>
+    <style>
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+    <meta name="description" content="Dashboard de introspección y metodologías Chalamandra DecoX: pastelote emocional, mochila malandra, mapa del caos y más.">
+    <link rel="canonical" href="https://www.chalamandramagistral.com/metodologias">
+    <meta property="og:title" content="Chalamandra: Kit de Autoconocimiento">
+    <meta property="og:description" content="Herramientas interactivas para explorar decisiones, arquetipos y sistemas propios.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.chalamandramagistral.com/metodologias">
+    <meta property="og:site_name" content="Chalamandra Magistral DecoX">
+    <meta property="og:locale" content="es_MX">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chalamandra: Kit de Autoconocimiento">
+    <meta name="twitter:description" content="Herramientas interactivas para explorar decisiones, arquetipos y sistemas propios.">
 </head>
 <body class="p-6 md:p-12">
     <!-- Google Tag Manager (noscript) -->
