@@ -28,3 +28,6 @@ venv/
 gemini-env/
 __pycache__/
 *.pyc
+
+# Documentos internos (no versionar)
+documentos/estrategia-comercial.md
