@@ -31,3 +31,9 @@ __pycache__/
 
 # Documentos internos (no versionar)
 documentos/estrategia-comercial.md
+.aider*
+venv/
+__pycache__/
+*.pyc
+.env
+test_*.py
