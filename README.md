@@ -74,7 +74,8 @@ Su objetivo es reducir la distancia innecesaria entre comprender algo y actuar s
 * **Herramientas:** plantillas, kits y productos de conocimiento.
 * **Productos y experiencias:** talleres, consultoría, arquitectura de marca, diseño de sistemas y experiencias interactivas de pensamiento estratégico.
 * **Estrategia comercial:** [documentos/estrategia-comercial.md](documentos/estrategia-comercial.md), mapa de dinero, ofertas iniciales, GBP, experimento de 30 días y control de rentabilidad.
-* **Manifiesto:** documento fundador disponible en [chalamandramagistral.com](https://chalamandramagistral.com).
+* **Inventario de productos digitales:** [documentos/inventario-productos-digitales.md](documentos/inventario-productos-digitales.md), evaluación de páginas alojadas con Firebase antes de venderlas.
+* **Manifiesto:** declaración fundadora de soberanía técnica y creativa disponible en [`manifiesto.html`](manifiesto.html).
 
 ## Alcance técnico
 
