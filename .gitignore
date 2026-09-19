@@ -9,3 +9,9 @@ venv/
 __pycache__/
 *.tar.gz
 rescate-*/
+
+# Secretos y SDK locales (nunca a GitHub)
+client_secrets.json
+google-admob-credential.json
+google-cloud-sdk/
+install.sh
