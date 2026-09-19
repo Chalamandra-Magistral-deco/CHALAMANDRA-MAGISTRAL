@@ -2,3 +2,10 @@
 *.env
 *.log
 documentos/estrategia-comercial.md
+.agents/
+.claude/
+venv/
+.env
+__pycache__/
+*.tar.gz
+rescate-*/
