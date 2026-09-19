@@ -15,3 +15,27 @@ client_secrets.json
 google-admob-credential.json
 google-cloud-sdk/
 install.sh
+.aider*
+
+# Backend y secretos (no van al repo público)
+gemini_service.py
+wallet_service.py
+app.py
+service_account.json
+*.py
+__pycache__/
+
+# Backend y secretos
+service_account.json
+*.key
+*.pem
+gemini_service.py
+wallet_service.py
+__pycache__/
+
+# Backend Python (no va al sitio público)
+*.py
+!deploy.sh
+service_account.json
+__pycache__/
+test_wallet.html
