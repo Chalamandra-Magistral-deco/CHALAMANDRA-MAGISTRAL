@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /_vercel/
-Disallow: /api/
-
-Sitemap: https://www.chalamandramagistral.com/sitemap.xml
