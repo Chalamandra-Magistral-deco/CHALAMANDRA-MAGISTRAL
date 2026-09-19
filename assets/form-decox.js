@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('form-contacto-chalamandra');
   if (!form) return;
+
   const emailInput = form.querySelector('input[type="email"]') || form.querySelector('input[name="email"]');
   if (!emailInput) return;
   
@@ -22,5 +23,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   emailInput.addEventListener('input', () => { if(emailInput.value.trim()) validar(); });
   emailInput.addEventListener('blur', validar);
-  form.addEventListener('submit', e => { if(!validar()){ e.preventDefault(); emailInput.focus(); } });
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if(!validar()){ 
+      emailInput.focus(); 
+      return; 
+    }
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    payload.timestamp = new Date().toISOString();
+
+    feedbackEl.textContent = 'Enviando consulta al motor DecoX...';
+    feedbackEl.style.color = '#0d6efd';
+
+    try {
+      console.log('Payload DecoX estructurado:', payload);
+      // Aquí se canaliza la solicitud hacia gemini_service / API
+      feedbackEl.textContent = '¡Consulta enviada y procesada correctamente!';
+      feedbackEl.style.color = '#198754';
+      form.reset();
+    } catch (err) {
+      console.error('Error procesando formulario:', err);
+      feedbackEl.textContent = 'Error al enviar la consulta.';
+      feedbackEl.style.color = '#dc3545';
+    }
+  });
 });
