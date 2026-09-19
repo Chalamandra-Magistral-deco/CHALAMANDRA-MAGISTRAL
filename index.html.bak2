@@ -334,7 +334,7 @@
                 <a href="#srap" class="hover:text-[#FFB300] transition-colors uppercase">SRAP</a>
                 <a href="#arquetipo" class="hover:text-[#FFB300] transition-colors uppercase">Tres capas</a>
                 <a href="#ecosistema" class="hover:text-[#FFB300] transition-colors uppercase">Sistemas</a>
-                <a href="manifiesto.html" class="hover:text-[#FFB300] transition-colors uppercase">Manifiesto</a>
+                <a href="https://splendid-starship-df7c87.netlify.app" class="hover:text-[#FFB300] transition-colors uppercase">Manifiesto</a>
             </div>
             <a href="#ecosistema" class="btn-magistral font-black rounded-lg text-[10px] px-6 py-2.5 text-center tracking-tighter uppercase">
                 VER OFERTA
@@ -744,7 +744,19 @@
             init3D();
         });
     </script>
-
+<script>
+  // Fix: forzar visible la sección al navegar por ancla
+  window.addEventListener("hashchange", () => {
+    const t = document.querySelector(location.hash);
+    if (t) t.classList.add("active");
+  });
+  window.addEventListener("load", () => {
+    if (location.hash) {
+      const t = document.querySelector(location.hash);
+      if (t) t.classList.add("active");
+    }
+  });
+</script>
 </body>
 <script>
   window.addEventListener("hashchange", () => {
@@ -761,19 +773,5 @@
   });
 </script>
 </body>
-<script>
-  window.addEventListener("hashchange", () => {
-    const t = document.querySelector(location.hash);
-    if (t) t.classList.add("active");
-  });
-  document.addEventListener("click", function(e) {
-    var a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-    var id = a.getAttribute("href").slice(1);
-    if (!id) return;
-    var t = document.getElementById(id);
-    if (t) t.classList.add("active");
-  });
-</script>
 </body>
 </html>
