@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const emailInput = form.querySelector('input[type="email"]') || form.querySelector('input[name="email"]');
   if (!emailInput) return;
-  
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let feedbackEl = form.querySelector('.email-feedback');
   if (!feedbackEl) {
@@ -16,19 +16,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function validar() {
     const v = emailInput.value.trim();
-    if (!v) { feedbackEl.textContent='El correo es obligatorio.'; feedbackEl.style.color='#dc3545'; emailInput.style.borderColor='#dc3545'; return false; }
-    if (!emailRegex.test(v)) { feedbackEl.textContent='Correo no válido.'; feedbackEl.style.color='#dc3545'; emailInput.style.borderColor='#dc3545'; return false; }
-    feedbackEl.textContent='¡Correo válido!'; feedbackEl.style.color='#198754'; emailInput.style.borderColor='#198754'; return true;
+    if (!v) {
+      feedbackEl.textContent = 'El correo es obligatorio.';
+      feedbackEl.style.color = '#dc3545';
+      emailInput.style.borderColor = '#dc3545';
+      return false;
+    }
+    if (!emailRegex.test(v)) {
+      feedbackEl.textContent = 'Correo no válido.';
+      feedbackEl.style.color = '#dc3545';
+      emailInput.style.borderColor = '#dc3545';
+      return false;
+    }
+    feedbackEl.textContent = '¡Correo válido!';
+    feedbackEl.style.color = '#198754';
+    emailInput.style.borderColor = '#198754';
+    return true;
   }
 
-  emailInput.addEventListener('input', () => { if(emailInput.value.trim()) validar(); });
+  emailInput.addEventListener('input', () => { if (emailInput.value.trim()) validar(); });
   emailInput.addEventListener('blur', validar);
 
-  form.addEventListener('submit', async e => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if(!validar()){ 
-      emailInput.focus(); 
-      return; 
+    if (!validar()) {
+      emailInput.focus();
+      return;
     }
 
     const formData = new FormData(form);
@@ -40,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       console.log('Payload DecoX estructurado:', payload);
-      // Aquí se canaliza la solicitud hacia gemini_service / API
       feedbackEl.textContent = '¡Consulta enviada y procesada correctamente!';
       feedbackEl.style.color = '#198754';
       form.reset();
