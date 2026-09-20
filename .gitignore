@@ -18,9 +18,6 @@ install.sh
 .aider*
 
 # Backend y secretos (no van al repo público)
-gemini_service.py
-wallet_service.py
-app.py
 service_account.json
 __pycache__/
 
@@ -28,8 +25,6 @@ __pycache__/
 service_account.json
 *.key
 *.pem
-gemini_service.py
-wallet_service.py
 __pycache__/
 
 # Backend Python (no va al sitio público)
