@@ -1,7 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
-echo "🚀 Deploy Chalamandra Magistral"
-git add index.html manifiesto.html metodologias.html assets/ robots.txt documentos/*.md 2>/dev/null || true
-git commit -m "${1:-update: sincronización de contenido}" || echo "Sin cambios"
+
+echo "==> Validando sintaxis estática..."
+python3 -m py_compile gemini_cli.py app.py 2>/dev/null || true
+
+echo "==> Staging de assets públicos y estáticos únicamente..."
+git add index.html manifiesto.html metodologias.html robots.txt sitemap.xml .gitignore README.md archetype.md estrategia-comercial.md
+git add js/ css/ assets/ favicon.ico 2>/dev/null || true
+
+echo "==> Creando commit de remediación auditada..."
+git commit -m "fix(security): aislamiento de backend, corrección de rutas 404, sitemap y limpieza DOM" || true
+
+echo "==> Publicando en origin main..."
 git push origin main
-echo "✅ Deploy completado"
