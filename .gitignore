@@ -22,7 +22,6 @@ gemini_service.py
 wallet_service.py
 app.py
 service_account.json
-*.py
 __pycache__/
 
 # Backend y secretos
@@ -34,7 +33,6 @@ wallet_service.py
 __pycache__/
 
 # Backend Python (no va al sitio público)
-*.py
 !deploy.sh
 service_account.json
 __pycache__/
