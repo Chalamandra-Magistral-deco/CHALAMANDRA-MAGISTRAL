@@ -16,3 +16,7 @@ documentos/estrategia-comercial.md
 *.bak
 *.bak2
 _archivo/
+
+# Sensitive credential protection
+service_account.json
+*.json.bak
