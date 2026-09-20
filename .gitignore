@@ -25,3 +25,8 @@ service_account.json
 .aider*
 .claude/
 .agents/
+
+# Caches de indexación local
+.aider*
+.claude/
+.agents/
