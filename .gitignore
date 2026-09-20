@@ -20,3 +20,8 @@ _archivo/
 # Sensitive credential protection
 service_account.json
 *.json.bak
+
+# Caches de indexación local
+.aider*
+.claude/
+.agents/
