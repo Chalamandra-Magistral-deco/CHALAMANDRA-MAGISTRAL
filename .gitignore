@@ -44,3 +44,6 @@ dist/
 
 # --- Tests / Wallet ---
 test_wallet.html
+Bridge/
+.env.age
+*.age
