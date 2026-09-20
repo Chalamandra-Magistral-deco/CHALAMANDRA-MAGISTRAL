@@ -1,32 +1,46 @@
-*.py
-.env
-service_account.json
-venv/
-__pycache__/
-.DS_Store
-
-# Internos / AI / test (no van al repo)
 .agents/
-.claude/
-.aider.tags.cache.v4/
+.aider*
 .aider.chat.history.md
 .aider.input.history
-test_wallet.html
-documentos/estrategia-comercial.md
+.aider.tags.cache.v4/
+_archivo/
 *.bak
 *.bak2
-_archivo/
-
+# Caches de indexación local
+.claude/
+documentos/estrategia-comercial.md
+.DS_Store
+.env
+# Internos / AI / test (no van al repo)
+*.json.bak
+*.py
+__pycache__/
 # Sensitive credential protection
 service_account.json
-*.json.bak
+test_wallet.html
+venv/
+# --- Secrets ---
+.env
+*.pem
+*.key
+*.p12
+*.pfx
 
-# Caches de indexación local
-.aider*
-.claude/
-.agents/
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+venv/
+env/
+.venv/
+instance/
 
-# Caches de indexación local
-.aider*
-.claude/
-.agents/
+# --- Proyecto pesado / temporal ---
+OpenGravity/
+_archivo/
+node_modules/
+dist/
+*.log
+
+# --- Tests / Wallet ---
+test_wallet.html
