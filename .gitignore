@@ -1,5 +1,4 @@
 .agents/
-.aider*
 .aider.chat.history.md
 .aider.input.history
 .aider.tags.cache.v4/
@@ -51,3 +50,6 @@ Bridge/
 # Locales
 deploy.sh
 package-lock.json
+
+# Aider (agente de IA local)
+.aider*
