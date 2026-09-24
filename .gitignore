@@ -47,3 +47,7 @@ test_wallet.html
 Bridge/
 .env.age
 *.age
+
+# Locales
+deploy.sh
+package-lock.json
