@@ -39,9 +39,9 @@ El caos no es el enemigo. Es información no procesada. La función de Chalamand
 
 ## 4. SRAP© | Operación
 
-**SRAP** significa **Sincronización Ritmo-Acción Presente**. Es el método que reduce la distancia entre saber qué hacer y comenzar a hacerlo.
+**SRAP©** significa **Sistema de Gestión de Flujo en Alta Incertidumbre**. Es un sistema cíclico, adaptativo y sistémico para gestionar el movimiento y la toma de decisiones cuando el contexto cambia.
 
-**Idea → Decisión → Acción → Observación → Ajuste**
+**Observar → Decidir → Actuar → Ajustar → Observar**
 
 **Latencia 0** es el objetivo del sistema: eliminar la espera innecesaria entre comprensión y movimiento. No es una promesa literal de tiempo cero.
 
@@ -69,7 +69,7 @@ La oferta convierte el método en distintos niveles de acompañamiento:
 
 **DecoX = decodificación.** La X es la variable, el problema, el sistema o el contexto que se quiere comprender.
 
-**SRAP = operación.**
+**SRAP© = gestión de flujo en alta incertidumbre.**
 
 **Contenido = resonancia.**
 
