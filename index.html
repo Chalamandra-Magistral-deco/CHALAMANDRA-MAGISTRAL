@@ -17,6 +17,22 @@
 
             gtag('config', 'AW-17523348063');
         </script>
+        <script>
+            function gtag_report_conversion(url) {
+                var callback = function () {
+                    if (typeof(url) != 'undefined') {
+                        window.location = url;
+                    }
+                };
+
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-17523348063/ZkfrCKXi3YUdEN-k5KNB',
+                    'event_callback': callback
+                });
+
+                return false;
+            }
+        </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chalamandra Magistral DecoX | Decodificar, diseñar, ejecutar</title>
@@ -366,7 +382,7 @@
                     <a href="#arquetipo" class="bg-[#FFB300] text-black font-black py-3 px-8 rounded-full uppercase tracking-widest text-xs hover:bg-white transition-all shadow-xl">
                         Explorar el sistema
                     </a>
-                    <a href="contact.html" class="border border-[#FFB300]/40 text-[#FFB300] font-black py-3 px-8 rounded-full uppercase tracking-widest text-xs hover:bg-[#FFB300]/10 transition-all shadow-xl" data-cta="hero-oferta">
+                    <a href="contact.html" onclick="return gtag_report_conversion('contact.html');" class="border border-[#FFB300]/40 text-[#FFB300] font-black py-3 px-8 rounded-full uppercase tracking-widest text-xs hover:bg-[#FFB300]/10 transition-all shadow-xl" data-cta="hero-oferta">
                         Hablar sobre un problema
                     </a>
                 </div>
