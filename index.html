@@ -819,6 +819,13 @@
                 } catch (e) {
                     console.error("Error al inicializar WebGL:", e);
                     container.innerHTML = '<div class="text-center text-white p-8"><p>La visualización 3D no está disponible en este dispositivo.</p></div>';
+                    [toggleBtnMobile, toggleBtnDesktop].forEach(btn => {
+                        if (btn) {
+                            btn.disabled = true;
+                            btn.setAttribute('aria-disabled', 'true');
+                            btn.textContent = '3D NO DISPONIBLE';
+                        }
+                    });
                 }
             }
 
@@ -828,6 +835,13 @@
                 if (placeholder) {
                     placeholder.textContent = 'Visualización interactiva desactivada por preferencias de movimiento reducido';
                 }
+                [toggleBtnMobile, toggleBtnDesktop].forEach(btn => {
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.setAttribute('aria-disabled', 'true');
+                        btn.textContent = 'INTERACCIÓN DESACTIVADA';
+                    }
+                });
             } else if ('IntersectionObserver' in window) {
                 const lazy3D = new IntersectionObserver((entries, observer) => {
                     if (entries.some(entry => entry.isIntersecting)) {
