@@ -25,8 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
         :root {
@@ -380,8 +379,8 @@
                 </div>
 
                 <div class="glass-card relative p-2 md:p-3 rounded-xl md:rounded-[3.5rem] overflow-hidden shadow-2xl">
-                    <div id="canvas-container">
-                        <!-- La esfera 3D se renderizará aquí -->
+                    <div id="canvas-container" aria-label="Visualización interactiva de caos y claridad">
+                        <div id="canvas-placeholder" class="absolute inset-0 flex items-center justify-center text-center p-8 text-[#B0BEC5] text-sm font-mono uppercase tracking-[0.2em]">Visualización interactiva · se activa al entrar en la sección</div>
                     </div>
                     
                     <!-- Controles reposicionados PARA MÓVIL -->
@@ -623,10 +622,15 @@
             let mouseX = 0, mouseY = 0;
             let isClarity = false;
             let transitionFactor = 0;
+            let initialized3D = false;
+            let animationId = null;
 
-            // Reducir partículas en móvil para mejor rendimiento
+            // Ajuste dinámico para equipos modestos.
             const isMobile = window.innerWidth < 768;
-            const PARTICLE_COUNT = isMobile ? 1000 : 3000;
+            const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+                               (navigator.deviceMemory && navigator.deviceMemory <= 4);
+            const PARTICLE_COUNT = isMobile ? (isLowPower ? 500 : 750) : (isLowPower ? 1400 : 2200);
+            const PIXEL_RATIO = isLowPower ? 1.25 : (isMobile ? 1.5 : 2);
             const chaosPositions = new Float32Array(PARTICLE_COUNT * 3);
             const clarityPositions = new Float32Array(PARTICLE_COUNT * 3);
             const currentPositions = new Float32Array(PARTICLE_COUNT * 3);
@@ -668,18 +672,23 @@
             }
 
             function init3D() {
+                if (initialized3D) return;
+                initialized3D = true;
+
                 try {
+                    const placeholder = document.getElementById('canvas-placeholder');
+                    if (placeholder) placeholder.remove();
                     scene = new THREE.Scene();
                     camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 1, 1000);
                     camera.position.z = 50;
 
                     renderer = new THREE.WebGLRenderer({ 
-                        antialias: !isMobile,
+                        antialias: !isMobile && !isLowPower,
                         alpha: true,
-                        powerPreference: "high-performance"
+                        powerPreference: isLowPower ? "low-power" : "high-performance"
                     });
                     renderer.setSize(container.clientWidth, container.clientHeight);
-                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, PIXEL_RATIO));
                     container.appendChild(renderer.domElement);
 
                     for(let i=0; i < PARTICLE_COUNT; i++) {
@@ -761,7 +770,6 @@
                         });
                     });
 
-                    let animationId;
                     const anim = () => {
                         const target = isClarity ? 1 : 0;
                         transitionFactor += (target - transitionFactor) * 0.05;
@@ -813,7 +821,24 @@
                     container.innerHTML = '<div class="text-center text-white p-8"><p>La visualización 3D no está disponible en este dispositivo.</p></div>';
                 }
             }
-            init3D();
+
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reducedMotion) {
+                const placeholder = document.getElementById('canvas-placeholder');
+                if (placeholder) {
+                    placeholder.textContent = 'Visualización interactiva desactivada por preferencias de movimiento reducido';
+                }
+            } else if ('IntersectionObserver' in window) {
+                const lazy3D = new IntersectionObserver((entries, observer) => {
+                    if (entries.some(entry => entry.isIntersecting)) {
+                        init3D();
+                        observer.disconnect();
+                    }
+                }, { rootMargin: '300px 0px' });
+                lazy3D.observe(container);
+            } else {
+                init3D();
+            }
         });
     </script>
 
