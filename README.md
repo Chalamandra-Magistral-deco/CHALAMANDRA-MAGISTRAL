@@ -1,63 +1,68 @@
 # CHALAMANDRA-MAGISTRAL
 
-Sitio institucional + API de servicios de **Chalamandra Magistral DecoX**.
+Sitio institucional y punto de entrada del ecosistema **Chalamandra Magistral DecoX**.
 
 ## Estructura
 
-- index.html           -> Portal principal
-- manifiesto.html      -> Manifiesto oficial
-- metodologias.html    -> Kit de metodologias
-- assets/              -> Recursos activos (form-decox.js)
-- documentos/          -> Documentacion interna
-- sitemap.xml
-- robots.txt
-- [backend Python - fuera del repo publico]
-  - app.py             -> API FastAPI (Gemini + Wallet)
-  - gemini_service.py
-  - wallet_service.py
-  - gemini_cli.py
+- `index.html` → Portal principal
+- `arquetipo.html` → Arquitectura del sistema
+- `manifiesto.html` → Manifiesto oficial
+- `metodologias.html` → Metodologías y herramientas
+- `contact.html` → Formulario de contacto
+- `thanks.html` → Confirmación de envío
+- `privacidad.html` → Política de privacidad
+- `terminos.html` → Condiciones del servicio
+- `assets/` → Recursos frontend activos
+- `documentos/` → Documentación del proyecto
+- `robots.txt`
+- `sitemap.xml`
 
-## Frontend (publico)
+## Frontend
 
-- HTML + CSS + JavaScript vanilla
-- CDNs: Tailwind, Three.js, Font Awesome, Google Fonts
-- Deploy automatico: Vercel desde main
+- HTML
+- CSS
+- JavaScript vanilla
+- Google Tag Manager
+- Tailwind CSS mediante CDN
+- Three.js mediante CDN
+- Google Fonts
+- Formspree para el formulario de contacto
 
-## Backend (privado, local)
+## Analítica
 
-- Python 3.11 + FastAPI + uvicorn
-- Endpoints:
-  - POST /api/gemini       - Procesamiento con Gemini
-  - POST /api/wallet/pass  - Credenciales Google Wallet
-- Ejecucion: python app.py (puerto 8000)
-- Variables de entorno requeridas:
-  - GEMINI_API_KEY  - Google AI Studio
-  - WALLET_SA_KEY   - ruta al service_account.json
+Google Tag Manager:
 
-## Variables de entorno
+`GTM-53TVD9VW`
 
-Ver .env.example para plantilla. El archivo .env real no se versiona.
+La configuración de Google Analytics y Google Ads se gestiona desde GTM para mantener una única capa de etiquetado.
 
-## Deploy
+## Formulario
 
-    # Frontend (automatico al hacer push a main)
-    git push origin main
-    # -> Vercel re-despliega en ~1 min
+El formulario de contacto utiliza Formspree y redirige a:
 
-    # Backend (manual, cuando este listo)
-    python app.py
+`/thanks.html`
+
+La validación utiliza las capacidades nativas del navegador.
+
+## Despliegue
+
+El repositorio utiliza `main` como línea canónica de trabajo.
+
+El despliegue se realiza mediante la integración configurada con Vercel.
 
 ## Seguridad
 
-- .env, service_account.json, *.py, *.bak estan en .gitignore
-- Nunca subir credenciales al repo publico
-- El backend vive fuera del repo publico
+- No se almacenan secretos en el frontend.
+- `.env`, certificados y credenciales están excluidos de Git.
+- El backend y sus credenciales, cuando existan, permanecen fuera de este repositorio público.
 
-## Documentacion interna
+## Repositorios
 
-- documentos/archetype.md               - Arquitectura conceptual
-- documentos/estrategia-comercial.md    - Modelo de negocio (privado)
+Este repositorio es el frontend institucional de Chalamandra Magistral DecoX.
+
+Los sistemas, aplicaciones y servicios independientes se mantienen en sus propios repositorios.
 
 ---
 
-© 2026 Chalamandra Magistral DecoX. Decodificar, disenar, ejecutar.
+© 2026 Chalamandra Magistral DecoX.
+Decodificar, diseñar, ejecutar.

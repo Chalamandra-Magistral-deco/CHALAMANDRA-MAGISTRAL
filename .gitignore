@@ -1,31 +1,22 @@
+# Local / AI
 .agents/
-.aider.chat.history.md
-.aider.input.history
-.aider.tags.cache.v4/
-_archivo/
-*.bak
-*.bak2
-# Caches de indexación local
 .claude/
+.aider*
+_archivo/
 documentos/estrategia-comercial.md
 .DS_Store
-.env
-# Internos / AI / test (no van al repo)
-*.json.bak
-*.py
-__pycache__/
-# Sensitive credential protection
-service_account.json
-test_wallet.html
-venv/
-# --- Secrets ---
+
+# Environment / secrets
 .env
 *.pem
 *.key
 *.p12
 *.pfx
+*.age
+service_account.json
 
-# --- Python ---
+# Python
+*.py
 __pycache__/
 *.pyc
 *.pyo
@@ -34,22 +25,16 @@ env/
 .venv/
 instance/
 
-# --- Proyecto pesado / temporal ---
+# Project / temporary
 OpenGravity/
-_archivo/
+Bridge/
 node_modules/
 dist/
 *.log
-
-# --- Tests / Wallet ---
-test_wallet.html
-Bridge/
-.env.age
-*.age
-
-# Locales
 deploy.sh
 package-lock.json
+test_wallet.html
 
-# Aider (agente de IA local)
-.aider*
+# Backups
+*.bak
+*.bak2
