@@ -43,7 +43,7 @@
       } else {
         return res.json().catch(function(){return{};}).then(function (json) {
           var msg = (json.errors && json.errors[0] && json.errors[0].message)
-            || 'No se pudo enviar. Escríbenos a contacto@chalamandramagistral.com';
+            || 'No se pudo enviar. Escríbenos a decoxmagistral@gmail.com';
           setStatus('error', msg);
           setLoading(false);
         });
