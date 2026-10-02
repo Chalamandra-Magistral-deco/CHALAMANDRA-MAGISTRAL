@@ -7,9 +7,9 @@
   var submitBtn = form.querySelector('button[type="submit"]');
   var originalText = submitBtn ? submitBtn.textContent : 'Enviar';
 
-  function setStatus(kind, message) {
+  function setStatus(kind, msg) {
     if (!statusEl) return;
-    statusEl.textContent = message;
+    statusEl.textContent = msg;
     statusEl.dataset.state = kind;
   }
   function setLoading(loading) {
@@ -18,37 +18,35 @@
     submitBtn.textContent = loading ? 'Enviando…' : originalText;
   }
 
-  form.addEventListener('submit', async function (e) {
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
     var data = new FormData(form);
     if (data.get('_gotcha')) return;
+    data.append('_next', 'https://www.chalamandramagistral.com/thanks.html');
 
     setLoading(true);
     setStatus('sending', 'Enviando mensaje…');
 
-    try {
-      var res = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function (res) {
       if (res.ok) {
-        form.reset();
-        setStatus('success', 'Mensaje enviado. Te responderemos pronto.');
-        if (window.dataLayer) {
-          window.dataLayer.push({ event: 'decox_form_submit', form: 'contact' });
-        }
+        window.location.href = 'https://www.chalamandramagistral.com/thanks.html';
       } else {
-        var json = await res.json().catch(function () { return {}; });
-        var msg = (json.errors && json.errors[0] && json.errors[0].message)
-          || 'No se pudo enviar. Escríbenos a contacto@chalamandramagistral.com';
-        setStatus('error', msg);
+        return res.json().catch(function(){return{};}).then(function (json) {
+          var msg = (json.errors && json.errors[0] && json.errors[0].message)
+            || 'No se pudo enviar. Escríbenos a contacto@chalamandramagistral.com';
+          setStatus('error', msg);
+          setLoading(false);
+        });
       }
-    } catch (err) {
+    })
+    .catch(function () {
       setStatus('error', 'Error de conexión. Intenta de nuevo.');
-    } finally {
       setLoading(false);
-    }
+    });
   });
 })();
