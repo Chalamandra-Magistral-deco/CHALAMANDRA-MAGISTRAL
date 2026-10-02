@@ -20,9 +20,14 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     var data = new FormData(form);
     if (data.get('_gotcha')) return;
-    data.append('_next', 'https://www.chalamandramagistral.com/thanks.html');
 
     setLoading(true);
     setStatus('sending', 'Enviando mensaje…');
@@ -34,7 +39,7 @@
     })
     .then(function (res) {
       if (res.ok) {
-        window.location.href = 'https://www.chalamandramagistral.com/thanks.html';
+        window.location.href = '/thanks.html';
       } else {
         return res.json().catch(function(){return{};}).then(function (json) {
           var msg = (json.errors && json.errors[0] && json.errors[0].message)
