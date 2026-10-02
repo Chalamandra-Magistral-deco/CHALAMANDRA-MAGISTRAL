@@ -47,6 +47,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .cta{display:inline-flex;align-items:center;justify-content:center;margin-top:30px;padding:14px 22px;background:linear-gradient(90deg,var(--rosa),#FF0000);color:#fff;text-decoration:none;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
   .back{display:inline-block;margin-top:24px;color:rgba(176,190,197,.65);font-size:11px;text-decoration:none;text-transform:uppercase;letter-spacing:.12em}
   footer{margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06);font-size:.8rem;color:rgba(176,190,197,.5)}
+
+.form-decox { margin-top: 40px; border-top: 1px solid rgba(255,255,255,.08); padding-top: 32px; }
+.form-decox h2 { color:#fff; font-size:1.3rem; text-transform:uppercase; letter-spacing:.12em; margin-bottom:8px; }
+.form-decox p { color:#d6dde1; margin-bottom: 24px; }
+.form-row { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+.form-row label { font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(176,190,197,.75); }
+.form-row input, .form-row select, .form-row textarea {
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,179,0,.15);
+  color: #fff; padding: 12px 14px; border-radius: 12px;
+  font-family: inherit; font-size: 0.95rem; outline: none;
+  transition: border-color .2s;
+}
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+  border-color: var(--rosa, #D5006C);
+}
+#decox-form-status { margin-top: 14px; font-size: .9rem; min-height: 1.2em; }
+#decox-form-status[data-state="success"] { color: var(--verde, #00FF5E); }
+#decox-form-status[data-state="error"] { color: #FF6B6B; }
 </style>
 
 </head>
@@ -80,7 +98,48 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </article>
   </div>
 
-  <div class="contact">
+  <section class="form-decox" aria-labelledby="form-decox-title">
+  <h2 id="form-decox-title">Cuéntame del problema</h2>
+  <p>Escríbenos y te respondemos en menos de 24h.</p>
+
+  <form id="decox-contact-form" action="https://formspree.io/f/maenzgzr" method="POST" novalidate>
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+    <input type="hidden" name="_subject" value="[DecoX] Nuevo contacto desde la web">
+
+    <div class="form-row">
+      <label for="decox-name">Nombre</label>
+      <input id="decox-name" type="text" name="name" required autocomplete="name">
+    </div>
+
+    <div class="form-row">
+      <label for="decox-email">Correo</label>
+      <input id="decox-email" type="email" name="email" required autocomplete="email">
+    </div>
+
+    <div class="form-row">
+      <label for="decox-type">Tipo de consulta</label>
+      <select id="decox-type" name="type" required>
+        <option value="">Selecciona…</option>
+        <option value="decodificar">Decodificar un problema</option>
+        <option value="disenar">Diseñar un sistema</option>
+        <option value="metodologia">Crear una metodología</option>
+        <option value="recurso">Recursos y materiales</option>
+        <option value="otro">Otro</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="decox-message">Mensaje</label>
+      <textarea id="decox-message" name="message" rows="6" required placeholder="Describe brevemente el problema, sistema o idea que necesitas estructurar…"></textarea>
+    </div>
+
+    <button type="submit" class="cta" data-cta="contact-form-submit">Enviar mensaje</button>
+
+    <p id="decox-form-status" data-state="idle" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+<div class="contact">
     <div class="line"><span class="label">Correo</span><a href="mailto:decoxmagistral@gmail.com">decoxmagistral@gmail.com</a></div>
     <div class="line"><span class="label">Teléfono</span><a href="tel:+522282673864">+52 228 267 3864</a></div>
     <div class="line"><span class="label">Ubicación</span><span>Xalapa, Veracruz, México</span></div>
@@ -93,5 +152,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <footer>© 2026 Chalamandra Magistral DecoX · <a href="privacidad.html">Privacidad</a> · <a href="terminos.html">Términos</a></footer>
 </div>
+<script src="assets/form-decox.js" defer></script>
 </body>
 </html>
