@@ -40,13 +40,23 @@
     .then(function (res) {
       if (res.ok) {
         window.dataLayer = window.dataLayer || [];
+        var redirected = false;
+
+        function goToThanks() {
+          if (redirected) return;
+          redirected = true;
+          window.location.href = '/thanks.html';
+        }
+
         window.dataLayer.push({
           event: 'generate_lead',
           lead_source: 'contact_form',
-          lead_type: data.get('type') || 'unknown'
+          lead_type: data.get('type') || 'unknown',
+          eventCallback: goToThanks,
+          eventTimeout: 2000
         });
 
-        window.location.href = '/thanks.html';
+        window.setTimeout(goToThanks, 2500);
       } else {
         return res.json().catch(function(){return{};}).then(function (json) {
           var msg = (json.errors && json.errors[0] && json.errors[0].message)
