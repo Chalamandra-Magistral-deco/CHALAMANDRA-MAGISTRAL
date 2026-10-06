@@ -39,6 +39,13 @@
     })
     .then(function (res) {
       if (res.ok) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'generate_lead',
+          lead_source: 'contact_form',
+          lead_type: data.get('type') || 'unknown'
+        });
+
         window.location.href = '/thanks.html';
       } else {
         return res.json().catch(function(){return{};}).then(function (json) {
