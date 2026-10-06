@@ -38,3 +38,9 @@ test_wallet.html
 # Backups
 *.bak
 *.bak2
+
+# Vercel (auto-generado por vercel link)
+.vercel
+
+# Vercel OIDC token local
+.env.local
