@@ -1,13 +1,22 @@
-# Local / AI
-.agents/
-.claude/
-.aider*
-_archivo/
-documentos/estrategia-comercial.md
+# OS / Deps
 .DS_Store
+node_modules/
+dist/
+*.log
+package-lock.json
 
-# Environment / secrets
+# Vercel
+.vercel
+
+# Env - ignora todo MENOS example
 .env
+.env.local
+.env.development.local
+.env.production.local
+.env.*.local
+!.env.example
+
+# Secrets - CRITICO
 *.pem
 *.key
 *.p12
@@ -15,32 +24,21 @@ documentos/estrategia-comercial.md
 *.age
 service_account.json
 
-# Python
-*.py
+# Local / AI / Temp
+.agents/
+.claude/
+.aider*
+_archivo/
+documentos/estrategia-comercial.md
 __pycache__/
 *.pyc
 *.pyo
 venv/
-env/
 .venv/
 instance/
-
-# Project / temporary
 OpenGravity/
 Bridge/
-node_modules/
-dist/
-*.log
 deploy.sh
-package-lock.json
 test_wallet.html
-
-# Backups
 *.bak
 *.bak2
-
-# Vercel (auto-generado por vercel link)
-.vercel
-
-# Vercel OIDC token local
-.env.local
