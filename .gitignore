@@ -42,3 +42,8 @@ deploy.sh
 test_wallet.html
 *.bak
 *.bak2
+
+# Protecciones adicionales
+service_account.json
+documentos/estrategia-comercial.md
+*.bak
