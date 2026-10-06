@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@source "../index.html";
+@source "../metodologias.html";
+@source "../assets/form-decox.js";
