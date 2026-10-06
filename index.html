@@ -11,10 +11,11 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chalamandra Magistral DecoX | Decodificar, diseñar, ejecutar</title>
+    <title>Chalamandra Magistral DecoX | Consultoría, metodologías y diseño de sistemas</title>
     
-    <meta name="description" content="Metodologías, análisis y herramientas para transformar problemas complejos en decisiones y sistemas de acción.">
+    <meta name="description" content="Consultoría estratégica, metodologías y herramientas para ordenar problemas complejos, diseñar sistemas de acción y convertir decisiones en ejecución.">
     <meta name="author" content="Chalamandra Magistral DecoX">
+    <meta name="theme-color" content="#050505">
     
     <meta property="og:title" content="Chalamandra Magistral DecoX">
     <meta property="og:description" content="Decodificar el sistema. Rediseñar la jugada. Ejecutar la acción.">
@@ -24,8 +25,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="/assets/tailwind.css">
+    <script src="/assets/three.min.js"></script>
 
     <style>
         :root {
@@ -301,7 +302,9 @@
     <meta property="og:image" content="https://www.chalamandramagistral.com/assets/og-chalamandra.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Chalamandra Magistral DecoX">
     <meta name="twitter:image" content="https://www.chalamandramagistral.com/assets/og-chalamandra.jpg">
+    <meta name="twitter:image:alt" content="Chalamandra Magistral DecoX">
     <meta name="twitter:card" content="summary_large_image">
     <script type="application/ld+json">
     {
@@ -347,19 +350,46 @@
     <div class="scanline"></div>
 
     <nav aria-label="Navegación principal" class="fixed w-full z-50 top-0 border-b border-white/5 bg-[#1A237E]/95 backdrop-blur-xl">
-        <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4 md:px-8">
+        <div class="relative max-w-screen-xl flex items-center justify-between mx-auto p-4 md:px-8">
             <a href="https://www.chalamandramagistral.com" class="flex items-center space-x-3 group">
                 <span class="text-3xl">🦎</span>
                 <span class="text-xl md:text-2xl font-bold text-white tracking-widest font-orbitron uppercase">CHALAMANDRA MAGISTRAL DECOX</span>
             </a>
+            <button
+                id="mobile-menu-toggle"
+                type="button"
+                class="md:hidden inline-flex items-center justify-center min-h-11 min-w-11 rounded-full border border-[#FFB300]/30 text-[#FFB300] text-lg"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+                aria-label="Abrir menú de navegación"
+            >
+                <span aria-hidden="true">☰</span>
+            </button>
             <div class="hidden md:flex space-x-8 font-bold text-[10px] tracking-[0.3em] text-[#B0BEC5]">
                 <a href="#experiencia" class="hover:text-[#FFB300] transition-colors uppercase">Decodificador</a>
                 <a href="#srap" class="hover:text-[#FFB300] transition-colors uppercase">SRAP</a>
                 <a href="#arquetipo" class="hover:text-[#FFB300] transition-colors uppercase">Tres capas</a>
                 <a href="#ecosistema" class="hover:text-[#FFB300] transition-colors uppercase">Sistemas</a>
                 <a href="#recursos" class="hover:text-[#FFB300] transition-colors uppercase">Recursos</a>
+                <a href="contact.html" class="hover:text-[#FFB300] transition-colors uppercase" data-cta="nav-contact">Contacto</a>
                 <a href="arquetipo.html" class="hover:text-[#FFB300] transition-colors uppercase">Arquitectura</a>
                 <a href="manifiesto.html" class="hover:text-[#FFB300] transition-colors uppercase">Manifiesto</a>
+            </div>
+            <div
+                id="mobile-menu"
+                hidden
+                class="absolute left-0 right-0 top-full md:hidden border-t border-white/10 bg-[#1A237E]/98 shadow-2xl"
+            >
+                <div class="flex flex-col gap-2 px-4 py-4 font-bold text-xs tracking-[0.18em] text-[#B0BEC5] uppercase">
+                    <a href="#experiencia" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Decodificador</a>
+                    <a href="#srap" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">SRAP</a>
+                    <a href="#arquetipo" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Tres capas</a>
+                    <a href="#ecosistema" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Sistemas</a>
+                    <a href="#recursos" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Recursos</a>
+                    <a href="arquetipo.html" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Arquitectura</a>
+                    <a href="manifiesto.html" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Manifiesto</a>
+                    <a href="contact.html" data-cta="mobile-nav-contact" class="mt-2 rounded-xl bg-[#FFB300] px-4 py-3 text-center text-black">Hablar sobre un problema</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -915,7 +945,7 @@
                 }
 
                 const fallbackScript = document.createElement('script');
-                fallbackScript.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js';
+                fallbackScript.src = '/assets/three.min.js';
                 fallbackScript.onload = init3D;
                 fallbackScript.onerror = () => {
                     show3DFallback('La visualización 3D no está disponible temporalmente.');
@@ -940,6 +970,37 @@
         var t = document.getElementById(id);
         if (t) t.classList.add("active");
       });
+    </script>
+<script>
+    (() => {
+        const toggle = document.getElementById('mobile-menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+        if (!toggle || !menu) return;
+
+        const closeMenu = () => {
+            menu.hidden = true;
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Abrir menú de navegación');
+        };
+
+        toggle.addEventListener('click', () => {
+            const open = menu.hidden;
+            menu.hidden = !open;
+            toggle.setAttribute('aria-expanded', String(open));
+            toggle.setAttribute(
+                'aria-label',
+                open ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'
+            );
+        });
+
+        menu.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeMenu();
+        });
+    })();
     </script>
 </body>
 </html>
