@@ -15,5 +15,9 @@
     "tailwindcss": "^4.3.3"
   },
   "private": true,
-  "packageManager": "pnpm@12.8.1"
+  "packageManager": "pnpm@12.8.1",
+  "dependencies": {
+    "google-auth-library": "^11.1.0",
+    "@vercel/oidc": "^4.0.0"
+  }
 }
