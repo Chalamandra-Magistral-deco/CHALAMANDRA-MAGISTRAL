@@ -51,6 +51,12 @@
         window.dataLayer.push({
           event: 'generate_lead',
           lead_source: 'contact_form',
+          lead_type: data.get('type') || 'unknown'
+        });
+
+        window.dataLayer.push({
+          event: 'CE - generate_lead',
+          lead_source: 'contact_form',
           lead_type: data.get('type') || 'unknown',
           eventCallback: goToThanks,
           eventTimeout: 2000
