@@ -15,5 +15,8 @@
     "tailwindcss": "^4.3.3"
   },
   "private": true,
-  "packageManager": "pnpm@12.8.1"
+  "packageManager": "pnpm@12.8.1",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
 }
