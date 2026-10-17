@@ -62,10 +62,10 @@ for attempt in range(1, 31):
             if sitemap_status != 200:
                 raise ValueError(f"Sitemap returned HTTP {sitemap_status}.")
             urls = sitemap_urls(sitemap_body)
-        except (urllib.error.HTTPError, ET.ParseError, ValueError) as exc:
-            if isinstance(exc, urllib.error.HTTPError) and exc.code != 404:
+        except urllib.error.HTTPError as exc:
+            if exc.code != 404:
                 raise
-            print(f"No usable sitemap; submitting homepage only: {exc}")
+            print(f"Sitemap returned HTTP 404; submitting homepage only: {exc}")
             urls = [base_url + "/"]
         break
     except Exception as exc:
