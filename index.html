@@ -1137,5 +1137,45 @@
 
     </script>
 
+
+<!-- Preserve campaign UTMs when a visitor moves from the homepage to contact.
+     Existing CTA UTMs remain as fallback when the landing URL has none. -->
+<script>
+(function () {
+    'use strict';
+    var keys = ['utm_source', 'utm_medium', 'utm_campaign'];
+    var incoming = new URLSearchParams(window.location.search);
+    var campaign = {};
+    keys.forEach(function (key) {
+        var value = incoming.get(key);
+        if (value) campaign[key] = value;
+    });
+    if (!Object.keys(campaign).length) return;
+
+    document.querySelectorAll('a[href]').forEach(function (link) {
+        var href = link.getAttribute('href');
+        if (!href || !/(^|\/)contact\.html(?:[?#]|$)/i.test(href)) return;
+
+        try {
+            var target = new URL(href, window.location.href);
+            var host = target.hostname.toLowerCase();
+            var allowedHosts = [
+                window.location.hostname.toLowerCase(),
+                'chalamandramagistral.com',
+                'www.chalamandramagistral.com'
+            ];
+            if (allowedHosts.indexOf(host) === -1) return;
+
+            keys.forEach(function (key) {
+                if (campaign[key]) target.searchParams.set(key, campaign[key]);
+            });
+            link.href = target.href;
+        } catch (error) {
+            // Si un enlace no puede analizarse, no alterar el comportamiento actual.
+        }
+    });
+})();
+</script>
+
 </body>
 </html>
