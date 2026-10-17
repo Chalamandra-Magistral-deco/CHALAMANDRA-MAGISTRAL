@@ -117,11 +117,25 @@ for (const required of [
   "sitemap.xml",
   "ads.txt",
   "app-ads.txt",
-  "chalamandra_indexnow_key_2026.txt",
+  "ffe446a24dd9e7aad5e9d9287a6c0d90.txt",
 ]) {
   if (!(await exists(path.join(output, required)))) {
     throw new Error(`No se generó el archivo requerido: ${required}`);
   }
+}
+
+const expectedIndexNowKey = "ffe446a24dd9e7aad5e9d9287a6c0d90";
+const publishedIndexNowKey = (
+  await readFile(path.join(output, expectedIndexNowKey + ".txt"), "utf8")
+).trim();
+
+if (
+  publishedIndexNowKey !== expectedIndexNowKey ||
+  !/^[a-f0-9]{32}$/.test(publishedIndexNowKey)
+) {
+  throw new Error(
+    "La clave IndexNow no coincide con el nombre del archivo o su formato es inválido."
+  );
 }
 
 console.log(`Salida estática preparada: ${output}`);
