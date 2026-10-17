@@ -1168,6 +1168,7 @@
 
             keys.forEach(function (key) {
                 if (campaign[key]) target.searchParams.set(key, campaign[key]);
+                else target.searchParams.delete(key);
             });
             link.href = target.href;
         } catch (error) {
