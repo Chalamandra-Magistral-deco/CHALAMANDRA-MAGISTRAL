@@ -6,6 +6,7 @@
 
 
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com https://*.google-analytics.com https://*.googlesyndication.com https://pagead2.googlesyndication.com; img-src * data: blob:; connect-src *;">
+    <meta name="decox-adsense-consent" content="ca-pub-6555516316911618">
     <script src="/assets/decox-consent.js"></script>
 
     <!-- Google Ads Global Tag (AW-7579755548) -->
@@ -16,7 +17,7 @@
       gtag('js', new Date());
       gtag('config', 'AW-7579755548');
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6555516316911618" crossorigin="anonymous"></script>
+
     <meta name="robots" content="index,follow,max-image-preview:large">
     <!-- Google Tag Manager -->
 
@@ -166,32 +167,32 @@
                 font-size: 3.5rem !important;
                 line-height: 1.2 !important;
             }
-            
+
             h2 {
                 font-size: 2.5rem !important;
             }
-            
+
             .text-6xl { font-size: 2.5rem; }
             .text-5xl { font-size: 2rem; }
             .text-4xl { font-size: 1.75rem; }
             .text-3xl { font-size: 1.5rem; }
-            
+
             .glass-card {
                 padding: 1.5rem !important;
                 border-radius: 1.5rem !important;
             }
-            
+
             .btn-magistral {
                 padding: 0.75rem 1.5rem !important;
                 font-size: 0.75rem !important;
             }
-            
+
             #canvas-container {
                 height: 60vh !important;
                 min-height: 350px !important;
                 border-radius: 1rem !important;
             }
-            
+
             #canvas-container .absolute {
                 position: relative !important;
                 bottom: auto !important;
@@ -200,34 +201,34 @@
                 padding: 1rem !important;
                 margin-top: 1rem !important;
             }
-            
+
             .arquetipo-border {
                 padding: 1.5rem !important;
                 border-radius: 2rem !important;
                 margin: 0 1rem;
             }
-            
+
             footer {
                 padding: 3rem 1rem !important;
             }
-            
+
             /* Mejorar toques */
             button, a {
                 min-height: 44px;
                 min-width: 44px;
             }
-            
+
             /* Ajustes específicos para la sección experiencia */
             #experiencia .flex.flex-col.md\:flex-row {
                 flex-direction: column !important;
                 text-align: center !important;
             }
-            
+
             #experiencia .text-right {
                 text-align: center !important;
                 margin-top: 1rem !important;
             }
-            
+
             /* Reposicionar controles del canvas */
             .canvas-controls {
                 display: flex !important;
@@ -236,43 +237,43 @@
                 margin-top: 1rem !important;
                 width: 100% !important;
             }
-            
+
             .canvas-controls > div {
                 width: 100% !important;
                 max-width: 100% !important;
                 margin-bottom: 1rem !important;
             }
-            
+
             .canvas-controls button {
                 width: 100% !important;
                 padding: 1rem !important;
             }
         }
-        
+
         @media (max-width: 480px) {
             h1 {
                 font-size: 2.5rem !important;
             }
-            
+
             #canvas-container {
                 height: 50vh !important;
                 min-height: 300px !important;
             }
-            
+
             .grid-cols-1 > * {
                 margin-bottom: 1rem;
             }
-            
+
             /* Header ajustes */
             header .text-6xl {
                 font-size: 2rem !important;
             }
-            
+
             header .text-3xl {
                 font-size: 1.5rem !important;
             }
         }
-        
+
         /* Clases específicas para los controles del canvas */
         .canvas-info-box {
             background: rgba(5, 5, 5, 0.95);
@@ -422,7 +423,7 @@
                 <div class="inline-block mb-8 px-4 py-2 rounded-full border border-[#FFB300]/30 bg-[#FFB300]/10 text-[#FFB300] text-[11px] font-black tracking-[0.3em] uppercase">
                     Sistema operativo creativo
                 </div>
-                
+
                 <h1 class="text-4xl md:text-[8rem] font-black mb-6 leading-none tracking-tighter title-magistral">
                     <span class="block text-white mb-2 font-light tracking-widest text-base md:text-2xl opacity-60">CHALAMANDRA MAGISTRAL</span>
                     <span class="block text-[#FF0000] italic leading-tight text-5xl md:text-[8rem]">DECOX</span>
@@ -430,7 +431,7 @@
                     <span class="block text-[#00FF5E] text-glow-verde leading-tight text-5xl md:text-[8rem]">COMPLEJO</span>
                     <span class="block text-white mt-4 font-bold tracking-tighter text-2xl md:text-5xl opacity-90">DISEÑAR LO ACCIONABLE</span>
                 </h1>
-                
+
                 <p class="text-sm md:text-xl text-[#B0BEC5] mb-8 max-w-4xl mx-auto leading-relaxed font-light px-4">
                     Metodologías, consultoría y herramientas para transformar <span class="text-white font-bold">problemas complejos en decisiones y sistemas de acción</span>.
                 </p>
@@ -465,7 +466,7 @@
                     <div id="canvas-container" aria-label="Visualización interactiva de caos y claridad">
                         <div id="canvas-placeholder" class="absolute inset-0 flex items-center justify-center text-center p-8 text-[#B0BEC5] text-sm font-mono uppercase tracking-[0.2em]">Visualización interactiva · se activa al entrar en la sección</div>
                     </div>
-                    
+
                     <!-- Controles reposicionados PARA MÓVIL -->
                     <div class="md:hidden canvas-controls p-4">
                         <div class="canvas-info-box">
@@ -478,7 +479,7 @@
                             ORDENAR EL SISTEMA
                         </button>
                     </div>
-                    
+
                     <!-- Controles para escritorio (mantienen posición original) -->
                     <div class="hidden md:block absolute bottom-10 left-10 right-10 z-20 flex flex-col md:flex-row justify-between items-center gap-8">
                         <div class="bg-[#050505]/95 backdrop-blur-3xl p-10 rounded-[2.5rem] border border-white/10 max-w-md shadow-2xl">
@@ -583,7 +584,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                     <!-- DECOX ECOSYSTEM PORTAL: START -->
                     <div id="decox-ecosystem-links" class="mt-12 md:mt-16">
                         <div class="text-center mb-8 md:mb-12">
