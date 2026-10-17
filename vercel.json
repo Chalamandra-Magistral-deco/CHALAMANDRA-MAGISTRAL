@@ -35,5 +35,7 @@
         }
       ]
     }
-  ]
+  ],
+  "cleanUrls": false,
+  "trailingSlash": false
 }
