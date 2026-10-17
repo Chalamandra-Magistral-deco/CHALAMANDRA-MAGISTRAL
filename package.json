@@ -23,5 +23,10 @@
   "dependencies": {
     "micro": "^10.0.1",
     "stripe": "^23.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
