@@ -413,6 +413,7 @@
                     <a href="#arquetipo" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Tres capas</a>
                     <a href="#ecosistema" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Sistemas</a>
                     <a href="#recursos" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Recursos</a>
+                    <a href="ofertas.html" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Servicios</a>
                     <a href="arquetipo.html" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Arquitectura</a>
                     <a href="manifiesto.html" class="rounded-xl px-4 py-3 hover:bg-white/5 hover:text-[#FFB300]">Manifiesto</a>
                     <a href="contact.html" data-cta="mobile-nav-contact" class="mt-2 rounded-xl bg-[#FFB300] px-4 py-3 text-center text-black">Hablar sobre un problema</a>
@@ -441,8 +442,8 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
-                    <a href="#arquetipo" class="bg-[#FFB300] text-black font-black py-3 px-8 rounded-full uppercase tracking-widest text-xs hover:bg-white transition-all shadow-xl">
-                        Explorar el sistema
+                    <a href="ofertas.html" class="bg-[#FFB300] text-black font-black py-3 px-8 rounded-full uppercase tracking-widest text-xs hover:bg-white transition-all shadow-xl" data-cta="hero-ofertas">
+                        Ver servicios y soluciones
                     </a>
                     <a href="contact.html" class="border border-[#FFB300]/40 text-[#FFB300] font-black py-3 px-8 rounded-full uppercase tracking-widest text-xs hover:bg-[#FFB300]/10 transition-all shadow-xl" data-cta="hero-oferta">
                         Hablar sobre un problema
@@ -698,6 +699,7 @@
             <div class="mb-6 text-5xl grayscale opacity-30">🦎</div>
             <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[10px] font-mono tracking-[0.25em] uppercase font-black text-[#B0BEC5]">
                 <a href="metodologias.html" class="hover:text-[#FFB300] transition-colors">Metodologías</a>
+                <a href="ofertas.html" class="hover:text-[#FFB300] transition-colors">Servicios</a>
                 <a href="contact.html" class="hover:text-[#FFB300] transition-colors">Contacto</a>
                 <a href="manifiesto.html" class="hover:text-[#FFB300] transition-colors">Manifiesto</a>
                 <a href="privacidad.html" class="hover:text-[#FFB300] transition-colors">Privacidad</a>
@@ -1137,6 +1139,19 @@
             source_subdomain: sourceSubdomain
         }, extra || {}));
     };
+
+    document.addEventListener("click", function (event) {
+        const link = event.target && event.target.closest
+            ? event.target.closest("a[data-cta]")
+            : null;
+        if (!link) return;
+        window.dataLayer.push({
+            event: "cta_click",
+            cta_id: link.getAttribute("data-cta") || "unknown",
+            target_url: link.href,
+            link_text: link.textContent.trim()
+        });
+    });
 })();
 
     </script>
@@ -1153,10 +1168,12 @@
 
     document.querySelectorAll('a[href]').forEach(function (link) {
         var href = link.getAttribute('href');
-        if (!href || !/(^|\/)contact\.html(?:[?#]|$)/i.test(href)) return;
+        if (!href) return;
 
         try {
             var target = new URL(href, window.location.href);
+            var pathname = target.pathname.toLowerCase();
+            if (!pathname.endsWith('/contact.html') && !pathname.endsWith('/ofertas.html')) return;
             var host = target.hostname.toLowerCase();
             var allowedHosts = [
                 window.location.hostname.toLowerCase(),

@@ -9,6 +9,7 @@ const publicDir = path.join(root, "public");
 
 const pages = [
   "index.html",
+  "ofertas.html",
   "metodologias.html",
   "arquetipo.html",
   "contact.html",
@@ -106,6 +107,7 @@ await mergePublicDirectory(publicDir);
 
 for (const required of [
   "index.html",
+  "ofertas.html",
   "metodologias.html",
   "arquetipo.html",
   "contact.html",
