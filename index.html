@@ -1139,6 +1139,19 @@
             source_subdomain: sourceSubdomain
         }, extra || {}));
     };
+
+    document.addEventListener("click", function (event) {
+        const link = event.target && event.target.closest
+            ? event.target.closest("a[data-cta]")
+            : null;
+        if (!link) return;
+        window.dataLayer.push({
+            event: "cta_click",
+            cta_id: link.getAttribute("data-cta") || "unknown",
+            target_url: link.href,
+            link_text: link.textContent.trim()
+        });
+    });
 })();
 
     </script>
@@ -1155,10 +1168,12 @@
 
     document.querySelectorAll('a[href]').forEach(function (link) {
         var href = link.getAttribute('href');
-        if (!href || !/(^|\/)contact\.html(?:[?#]|$)/i.test(href)) return;
+        if (!href) return;
 
         try {
             var target = new URL(href, window.location.href);
+            var pathname = target.pathname.toLowerCase();
+            if (!pathname.endsWith('/contact.html') && !pathname.endsWith('/ofertas.html')) return;
             var host = target.hostname.toLowerCase();
             var allowedHosts = [
                 window.location.hostname.toLowerCase(),
