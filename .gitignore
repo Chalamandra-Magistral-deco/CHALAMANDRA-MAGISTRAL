@@ -47,3 +47,5 @@ test_wallet.html
 service_account.json
 documentos/estrategia-comercial.md
 *.bak
+
+supabase/.temp/
