@@ -224,9 +224,10 @@
 
       document.querySelectorAll('a[href]').forEach(function (link) {
         var href = link.getAttribute('href');
-        if (!href || !/(^|\/)contact\.html(?:[?#]|$)/i.test(href)) return;
+        if (!href) return;
         try {
           var target = new URL(href, window.location.href);
+          if (!target.pathname.toLowerCase().endsWith('/contact.html')) return;
           var allowedHosts = [window.location.hostname.toLowerCase(), 'chalamandramagistral.com', 'www.chalamandramagistral.com'];
           if (allowedHosts.indexOf(target.hostname.toLowerCase()) === -1) return;
           keys.forEach(function (key) {
