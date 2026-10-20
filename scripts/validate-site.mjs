@@ -201,7 +201,7 @@ const cspHeaderEntry = (config.headers || [])
 const cspValue = cspHeaderEntry?.value || "";
 const cspDirectives = new Map(
   cspValue.split(";").map((part) => {
-    const [name, ...values] = part.trim().split(/\\s+/);
+    const [name, ...values] = part.trim().split(/\s+/);
     return [name, values.join(" ")];
   }).filter(([name]) => Boolean(name))
 );
@@ -253,7 +253,7 @@ for (const directive of [
   "connect-src", "font-src", "frame-src", "form-action",
 ]) {
   const value = cspDirective(directive);
-  check(!/(^|\\s)(?:https:|\\*)(?=\\s|$)/.test(value),
+  check(!/(^|\s)(?:https:|\*)(?=\s|$)/.test(value),
     `CSP ${directive} no debe incluir fuentes globales https: o *`);
 }
 check(cspDirective("object-src") === "'none'",
