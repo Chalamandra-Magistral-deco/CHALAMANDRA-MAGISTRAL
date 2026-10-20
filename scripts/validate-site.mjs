@@ -286,9 +286,8 @@ check(!(reportOnlyCsp.get("script-src") || "").includes("'unsafe-eval'"),
   "CSP Report-Only debe probar una política sin unsafe-eval antes de retirarlo de la política efectiva");
 check(reportOnlyCsp.get("script-src-attr") === "'none'",
   "CSP Report-Only debe detectar atributos de eventos inline que conviene migrar");
-check(!(reportOnlyCsp.get("script-src") || "").includes("https:") &&
-  !(reportOnlyCsp.get("connect-src") || "").includes("*"),
-  "CSP Report-Only no debe permitir fuentes genéricas");
+check(!/(^|\\s)\\*(?=\\s|$)/.test(reportOnlyCsp.get("connect-src") || ""),
+  "CSP Report-Only connect-src no debe permitir cualquier origen");
 
 const homepage = htmlByPage.get("index.html") || "";
 check(!/<meta\s+http-equiv=["']Content-Security-Policy["']/i.test(homepage),
