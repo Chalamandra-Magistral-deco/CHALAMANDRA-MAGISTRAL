@@ -27,16 +27,16 @@ async function isFile(file) {
 
 function pageMarkup(html) {
   return html
-    .replace(/<!--[\\s\\S]*?-->/g, "")
-    .replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, (block) =>
-      block.match(/^<script\\b[^>]*>/i)?.[0] || "")
-    .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, "");
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, (block) =>
+      block.match(/^<script\b[^>]*>/i)?.[0] || "")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "");
 }
 
 function extractIds(html) {
   const ids = new Set();
   const duplicates = new Set();
-  for (const match of pageMarkup(html).matchAll(/\\bid\\s*=\\s*(["'])(.*?)\\1/gi)) {
+  for (const match of pageMarkup(html).matchAll(/\bid\s*=\s*(["'])(.*?)\1/gi)) {
     const id = match[2].trim();
     if (!id) continue;
     if (ids.has(id)) duplicates.add(id);
@@ -46,7 +46,7 @@ function extractIds(html) {
 }
 
 function localUrl(raw, page) {
-  if (/^(?:https?:|mailto:|tel:|javascript:|data:|blob:|\\/\\/)/i.test(raw)) {
+  if (/^(?:https?:|mailto:|tel:|javascript:|data:|blob:|\/\/)/i.test(raw)) {
     return null;
   }
   try {
@@ -67,7 +67,7 @@ function routeTarget(pathname, config) {
 }
 
 async function existsInSite(sitePath) {
-  const clean = sitePath.replace(/^\\/+/, "");
+  const clean = sitePath.replace(/^\/+/, "");
   const candidates = [];
   if (clean === "") {
     candidates.push(path.join(base, "index.html"));
@@ -100,7 +100,7 @@ for (const page of SITE_PAGES) {
 
   const html = await readFile(file, "utf8");
   htmlByPage.set(page, html);
-  const title = html.match(/<title\\b[^>]*>([\\s\\S]*?)<\\/title>/i)?.[1]?.replace(/<[^>]*>/g, "").trim();
+  const title = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.replace(/<[^>]*>/g, "").trim();
   check(Boolean(title), `La página no tiene <title>: ${page}`);
 
   const { ids, duplicates } = extractIds(html);
@@ -115,11 +115,11 @@ for (const page of SITE_PAGES) {
   const html = htmlByPage.get(page);
   if (!html) continue;
   const markup = pageMarkup(html);
-  const tagPattern = /<([a-z][a-z0-9:-]*)\\b([^<>]*?)>/gi;
+  const tagPattern = /<([a-z][a-z0-9:-]*)\b([^<>]*?)>/gi;
 
   for (const tag of markup.matchAll(tagPattern)) {
     const tagName = tag[1].toLowerCase();
-    const attrPattern = /\\b(href|src|action|poster)\\s*=\\s*(?:"([^"]*)"|'([^']*)')/gi;
+    const attrPattern = /\b(href|src|action|poster)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi;
 
     for (const attr of tag[2].matchAll(attrPattern)) {
       const raw = (attr[2] ?? attr[3] ?? "").trim();
@@ -131,13 +131,13 @@ for (const page of SITE_PAGES) {
 
       let targetPath = resolved.pathname;
       if (targetPath === "/") targetPath = "/index.html";
-      let sitePath = targetPath.replace(/^\\/+/, "");
+      let sitePath = targetPath.replace(/^\/+/, "");
       if (targetPath.endsWith("/")) sitePath += "index.html";
 
       const redirectedPath = routeTarget(resolved.pathname, config);
       if (redirectedPath) {
         targetPath = redirectedPath;
-        sitePath = targetPath.replace(/^\\/+/, "");
+        sitePath = targetPath.replace(/^\/+/, "");
       }
 
       check(await existsInSite(sitePath),
@@ -166,7 +166,7 @@ const sitemapFile = path.join(checkDist ? base : path.join(root, "public"), "sit
 check(await isFile(sitemapFile), "No se encontró sitemap.xml para validar");
 if (await isFile(sitemapFile)) {
   const sitemap = await readFile(sitemapFile, "utf8");
-  const urls = [...sitemap.matchAll(/<loc>\\s*([^<]+?)\\s*<\\/loc>/gi)].map((m) => m[1].trim());
+  const urls = [...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map((m) => m[1].trim());
   check(urls.length > 0, "El sitemap debe contener al menos una URL");
   check(new Set(urls).size === urls.length, "El sitemap no debe repetir URLs");
 
@@ -175,7 +175,7 @@ if (await isFile(sitemapFile)) {
       const url = new URL(raw);
       check(url.protocol === "https:", `URL no HTTPS en sitemap: ${raw}`);
       check(url.hostname === "www.chalamandramagistral.com", `Host no canónico en sitemap: ${raw}`);
-      let sitePath = decodeURIComponent(url.pathname).replace(/^\\/+/, "");
+      let sitePath = decodeURIComponent(url.pathname).replace(/^\/+/, "");
       if (!sitePath || url.pathname.endsWith("/")) sitePath = sitePath ? sitePath + "index.html" : "index.html";
       check(await existsInSite(sitePath), `El sitemap apunta a una ruta inexistente: ${raw}`);
     } catch {
