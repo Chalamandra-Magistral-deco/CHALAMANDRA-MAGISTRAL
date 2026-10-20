@@ -192,20 +192,22 @@ check(contactHtml.includes('id="decox-contact-form"'), "Falta el formulario cent
 check(contactHtml.includes("form-decox.js"), "La página de contacto debe cargar el script compartido del formulario");
 check(await isFile(path.join(root, "assets", "decox-consent.js")), "Falta el módulo compartido de consentimiento");
 
-const cspHeaderEntry = (config.headers || [])
-  .flatMap((rule) => rule.headers || [])
-  .find(({ key }) => [
-    "Content-Security-Policy-Report-Only",
-    "Content-Security-Policy",
-  ].includes(key));
-const cspValue = cspHeaderEntry?.value || "";
-const cspDirectives = new Map(
-  cspValue.split(";").map((part) => {
-    const [name, ...values] = part.trim().split(/\s+/);
-    return [name, values.join(" ")];
-  }).filter(([name]) => Boolean(name))
-);
-const cspDirective = (name) => cspDirectives.get(name) || "";
+const cspHeaders = (config.headers || [])
+  .flatMap((rule) => rule.headers || []);
+const enforcedCspEntry = cspHeaders.find(({ key }) => key === "Content-Security-Policy");
+const reportOnlyCspEntry = cspHeaders.find(({ key }) => key === "Content-Security-Policy-Report-Only");
+
+function parseCsp(value) {
+  return new Map(
+    (value || "").split(";").map((part) => {
+      const [name, ...values] = part.trim().split(/\\s+/);
+      return [name, values.join(" ")];
+    }).filter(([name]) => Boolean(name))
+  );
+}
+
+const enforcedCsp = parseCsp(enforcedCspEntry?.value);
+const reportOnlyCsp = parseCsp(reportOnlyCspEntry?.value);
 const requiredCspOrigins = {
   "script-src": [
     "'self'",
@@ -237,36 +239,60 @@ const requiredCspOrigins = {
   "form-action": ["'self'", "https://formspree.io"],
 };
 
-check(cspHeaderEntry?.key === "Content-Security-Policy-Report-Only",
-  "La primera fase de CSP debe ser Report-Only hasta validar visualmente GTM y el portal");
-check(cspDirective("default-src") === "'self'",
-  "CSP debe usar default-src 'self' sin permitir cualquier origen HTTPS");
-for (const [directive, origins] of Object.entries(requiredCspOrigins)) {
-  const value = cspDirective(directive);
-  check(Boolean(value), `CSP debe declarar ${directive}`);
-  for (const origin of origins) {
-    check(value.includes(origin), `CSP ${directive} debe permitir ${origin}`);
-  }
-}
-for (const directive of [
-  "default-src", "script-src", "style-src", "img-src",
-  "connect-src", "font-src", "frame-src", "form-action",
+check(Boolean(enforcedCspEntry), "Vercel debe aplicar una CSP por encabezado HTTP");
+check(Boolean(reportOnlyCspEntry), "Vercel debe conservar una segunda CSP en modo Report-Only");
+check(enforcedCsp.get("default-src") === "'self'",
+  "CSP efectiva debe usar default-src 'self'");
+check(reportOnlyCsp.get("default-src") === "'self'",
+  "CSP Report-Only debe usar default-src 'self'");
+
+for (const [label, directives] of [
+  ["CSP efectiva", enforcedCsp],
+  ["CSP Report-Only", reportOnlyCsp],
 ]) {
-  const value = cspDirective(directive);
-  check(!/(^|\s)(?:https:|\*)(?=\s|$)/.test(value),
-    `CSP ${directive} no debe incluir fuentes globales https: o *`);
+  for (const directive of [
+    "script-src", "script-src-elem", "style-src", "img-src",
+    "connect-src", "font-src", "frame-src", "form-action",
+  ]) {
+    const value = directives.get(directive) || "";
+    check(Boolean(value), `${label} debe declarar ${directive}`);
+    check(!/(^|\\s)(?:https:|\\*)(?=\\s|$)/.test(value),
+      `${label} ${directive} no debe permitir globalmente https: ni *`);
+  }
+
+  for (const [directive, origins] of Object.entries(requiredCspOrigins)) {
+    const value = directives.get(directive) || "";
+    for (const origin of origins) {
+      check(value.includes(origin), `${label} ${directive} debe permitir ${origin}`);
+    }
+  }
+
+  check(directives.get("object-src") === "'none'",
+    `${label} debe bloquear plugins con object-src 'none'`);
+  check(directives.get("base-uri") === "'self'",
+    `${label} debe restringir base-uri a self`);
+  check(directives.get("frame-ancestors") === "'none'",
+    `${label} debe impedir la incrustación por terceros`);
+  check((directives.get("img-src") || "").includes("'self'") &&
+    (directives.get("img-src") || "").includes("data:"),
+    `${label} debe permitir imágenes locales y data URLs necesarias`);
 }
-check(cspDirective("object-src") === "'none'",
-  "CSP debe bloquear plugins con object-src 'none'");
-check(cspDirective("base-uri") === "'self'",
-  "CSP debe restringir base-uri a self");
-check(cspDirective("frame-ancestors") === "'none'",
-  "CSP debe impedir que el portal sea incrustado por terceros");
-check(cspDirective("img-src").includes("'self'") &&
-  cspDirective("img-src").includes("data:"),
-  "CSP debe permitir imágenes locales y data URLs requeridas por el sitio");
+
+check((enforcedCsp.get("script-src") || "").includes("'unsafe-inline'"),
+  "CSP efectiva debe conservar temporalmente los scripts inline existentes, incluido el bootstrap GTM");
+check((enforcedCsp.get("script-src") || "").includes("'unsafe-eval'"),
+  "CSP efectiva conserva temporalmente unsafe-eval hasta confirmar si GTM lo requiere");
+check(!(reportOnlyCsp.get("script-src") || "").includes("'unsafe-eval'"),
+  "CSP Report-Only debe probar una política sin unsafe-eval antes de retirarlo de la política efectiva");
+check(reportOnlyCsp.get("script-src-attr") === "'none'",
+  "CSP Report-Only debe detectar atributos de eventos inline que conviene migrar");
+check(!(reportOnlyCsp.get("script-src") || "").includes("https:") &&
+  !(reportOnlyCsp.get("connect-src") || "").includes("*"),
+  "CSP Report-Only no debe permitir fuentes genéricas");
 
 const homepage = htmlByPage.get("index.html") || "";
+check(!/<meta\\s+http-equiv=["']Content-Security-Policy["']/i.test(homepage),
+  "La portada no debe definir una segunda CSP meta; vercel.json es la fuente única de política");
 check(homepage.includes('id="canvas-container"'),
   "La portada debe conservar el contenedor de la experiencia 3D");
 check(homepage.includes("THREE.WebGLRenderer") &&
