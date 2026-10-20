@@ -192,6 +192,96 @@ check(contactHtml.includes('id="decox-contact-form"'), "Falta el formulario cent
 check(contactHtml.includes("form-decox.js"), "La página de contacto debe cargar el script compartido del formulario");
 check(await isFile(path.join(root, "assets", "decox-consent.js")), "Falta el módulo compartido de consentimiento");
 
+const cspHeaderEntry = (config.headers || [])
+  .flatMap((rule) => rule.headers || [])
+  .find(({ key }) => [
+    "Content-Security-Policy-Report-Only",
+    "Content-Security-Policy",
+  ].includes(key));
+const cspValue = cspHeaderEntry?.value || "";
+const cspDirectives = new Map(
+  cspValue.split(";").map((part) => {
+    const [name, ...values] = part.trim().split(/\\s+/);
+    return [name, values.join(" ")];
+  }).filter(([name]) => Boolean(name))
+);
+const cspDirective = (name) => cspDirectives.get(name) || "";
+const requiredCspOrigins = {
+  "script-src": [
+    "'self'",
+    "https://www.googletagmanager.com",
+    "https://www.google-analytics.com",
+    "https://pagead2.googlesyndication.com",
+  ],
+  "style-src": [
+    "'self'",
+    "https://fonts.googleapis.com",
+    "https://cdnjs.cloudflare.com",
+  ],
+  "font-src": [
+    "'self'",
+    "https://fonts.gstatic.com",
+    "https://cdnjs.cloudflare.com",
+  ],
+  "connect-src": [
+    "'self'",
+    "https://www.googletagmanager.com",
+    "https://www.google-analytics.com",
+    "https://formspree.io",
+  ],
+  "frame-src": [
+    "'self'",
+    "https://www.googletagmanager.com",
+    "https://view.genially.com",
+  ],
+  "form-action": ["'self'", "https://formspree.io"],
+};
+
+check(cspHeaderEntry?.key === "Content-Security-Policy-Report-Only",
+  "La primera fase de CSP debe ser Report-Only hasta validar visualmente GTM y el portal");
+check(cspDirective("default-src") === "'self'",
+  "CSP debe usar default-src 'self' sin permitir cualquier origen HTTPS");
+for (const [directive, origins] of Object.entries(requiredCspOrigins)) {
+  const value = cspDirective(directive);
+  check(Boolean(value), `CSP debe declarar ${directive}`);
+  for (const origin of origins) {
+    check(value.includes(origin), `CSP ${directive} debe permitir ${origin}`);
+  }
+}
+for (const directive of [
+  "default-src", "script-src", "style-src", "img-src",
+  "connect-src", "font-src", "frame-src", "form-action",
+]) {
+  const value = cspDirective(directive);
+  check(!/(^|\\s)(?:https:|\\*)(?=\\s|$)/.test(value),
+    `CSP ${directive} no debe incluir fuentes globales https: o *`);
+}
+check(cspDirective("object-src") === "'none'",
+  "CSP debe bloquear plugins con object-src 'none'");
+check(cspDirective("base-uri") === "'self'",
+  "CSP debe restringir base-uri a self");
+check(cspDirective("frame-ancestors") === "'none'",
+  "CSP debe impedir que el portal sea incrustado por terceros");
+check(cspDirective("img-src").includes("'self'") &&
+  cspDirective("img-src").includes("data:"),
+  "CSP debe permitir imágenes locales y data URLs requeridas por el sitio");
+
+const homepage = htmlByPage.get("index.html") || "";
+check(homepage.includes('id="canvas-container"'),
+  "La portada debe conservar el contenedor de la experiencia 3D");
+check(homepage.includes("THREE.WebGLRenderer") &&
+  homepage.includes("assets/three.min.js"),
+  "La portada debe conservar el motor Three.js");
+check(homepage.includes('data-cta="hero-ofertas"') &&
+  homepage.includes('data-cta="hero-oferta"'),
+  "La portada debe conservar los dos CTA del hero");
+check(homepage.includes("www.googletagmanager.com/gtm.js") &&
+  homepage.includes("GTM-53TVD9VW"),
+  "La portada debe conservar el cargador del contenedor Google Tag Manager");
+check(homepage.includes("www.googletagmanager.com/ns.html"),
+  "La portada debe conservar el fallback noscript de Google Tag Manager");
+
+
 if (checkDist) {
   for (const required of REQUIRED_OUTPUT_FILES) {
     check(await isFile(path.join(base, required)), `Falta en salida Vercel: ${required}`);
