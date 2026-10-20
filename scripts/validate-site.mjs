@@ -200,7 +200,7 @@ const reportOnlyCspEntry = cspHeaders.find(({ key }) => key === "Content-Securit
 function parseCsp(value) {
   return new Map(
     (value || "").split(";").map((part) => {
-      const [name, ...values] = part.trim().split(/\\s+/);
+      const [name, ...values] = part.trim().split(/\s+/);
       return [name, values.join(" ")];
     }).filter(([name]) => Boolean(name))
   );
@@ -256,7 +256,7 @@ for (const [label, directives] of [
   ]) {
     const value = directives.get(directive) || "";
     check(Boolean(value), `${label} debe declarar ${directive}`);
-    check(!/(^|\\s)(?:https:|\\*)(?=\\s|$)/.test(value),
+    check(!/(^|\s)(?:https:|\*)(?=\s|$)/.test(value),
       `${label} ${directive} no debe permitir globalmente https: ni *`);
   }
 
@@ -291,7 +291,7 @@ check(!(reportOnlyCsp.get("script-src") || "").includes("https:") &&
   "CSP Report-Only no debe permitir fuentes genéricas");
 
 const homepage = htmlByPage.get("index.html") || "";
-check(!/<meta\\s+http-equiv=["']Content-Security-Policy["']/i.test(homepage),
+check(!/<meta\s+http-equiv=["']Content-Security-Policy["']/i.test(homepage),
   "La portada no debe definir una segunda CSP meta; vercel.json es la fuente única de política");
 check(homepage.includes('id="canvas-container"'),
   "La portada debe conservar el contenedor de la experiencia 3D");
