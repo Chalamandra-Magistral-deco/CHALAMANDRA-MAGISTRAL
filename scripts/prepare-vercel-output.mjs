@@ -2,32 +2,16 @@ import {
   cp, copyFile, mkdir, readFile, readdir, rm, stat
 } from "node:fs/promises";
 import path from "node:path";
+import {
+  INDEXNOW_KEY,
+  REQUIRED_OUTPUT_FILES,
+  ROOT_PUBLIC_FILES,
+  SITE_PAGES,
+} from "./site-manifest.mjs";
 
 const root = process.cwd();
 const output = path.join(root, "dist");
 const publicDir = path.join(root, "public");
-
-const pages = [
-  "index.html",
-  "ofertas.html",
-  "metodologias.html",
-  "arquetipo.html",
-  "contact.html",
-  "manifiesto.html",
-  "privacidad.html",
-  "terminos.html",
-  "thanks.html",
-];
-
-const rootPublicFiles = [
-  "ads.txt",
-  "app-ads.txt",
-  "robots.txt",
-  "sitemap.xml",
-  "googleadcf0e30d28ba73f.html",
-  "googlex1nuAArJmQjW7N7sbnpkPQnlCcZw9uAlUw81tN9Gj3A.html",
-  "ffe446a24dd9e7aad5e9d9287a6c0d90.txt",
-];
 
 async function exists(file) {
   try {
@@ -87,11 +71,11 @@ async function mergePublicDirectory(sourceDir, relativeDir = "") {
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 
-for (const page of pages) {
+for (const page of SITE_PAGES) {
   await copyIntoOutput(page);
 }
 
-for (const file of rootPublicFiles) {
+for (const file of ROOT_PUBLIC_FILES) {
   if (await exists(path.join(root, file))) {
     await copyIntoOutput(file);
   }
@@ -105,28 +89,13 @@ await cp(
 
 await mergePublicDirectory(publicDir);
 
-for (const required of [
-  "index.html",
-  "ofertas.html",
-  "metodologias.html",
-  "arquetipo.html",
-  "contact.html",
-  "assets/tailwind.css",
-  "assets/decox-consent.js",
-  "assets/form-decox.js",
-  "assets/three.min.js",
-  "robots.txt",
-  "sitemap.xml",
-  "ads.txt",
-  "app-ads.txt",
-  "ffe446a24dd9e7aad5e9d9287a6c0d90.txt",
-]) {
+for (const required of REQUIRED_OUTPUT_FILES) {
   if (!(await exists(path.join(output, required)))) {
     throw new Error(`No se generó el archivo requerido: ${required}`);
   }
 }
 
-const expectedIndexNowKey = "ffe446a24dd9e7aad5e9d9287a6c0d90";
+const expectedIndexNowKey = INDEXNOW_KEY;
 const publishedIndexNowKey = (
   await readFile(path.join(output, expectedIndexNowKey + ".txt"), "utf8")
 ).trim();
@@ -141,6 +110,6 @@ if (
 }
 
 console.log(`Salida estática preparada: ${output}`);
-console.log("Páginas:", pages.length);
+console.log("Páginas:", SITE_PAGES.length);
 console.log("Recursos y archivos públicos copiados y verificados.");
 console.log("La carpeta api no se copia como contenido estático.");
