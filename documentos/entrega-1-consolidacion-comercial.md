@@ -1,7 +1,7 @@
 # Entrega 1 — Consolidación comercial
 
-**Estado:** rama de revisión; no fusionada ni desplegada a producción.  
-**Rama:** `feat/entrega-1-consolidacion-comercial-20261019`  
+**Estado:** rama de revisión; no fusionada ni desplegada a producción.
+**Rama:** `feat/entrega-1-consolidacion-comercial-20261019`
 **Objetivo:** hacer que la portada, los accesos corporativos y las páginas de metodología conduzcan con claridad hacia los servicios de Chalamandra Magistral DecoX.
 
 ## Mensaje corporativo de referencia
