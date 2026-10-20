@@ -23,8 +23,8 @@ Sitio institucional y punto de entrada del ecosistema **Chalamandra Magistral De
 - CSS
 - JavaScript vanilla
 - Google Tag Manager
-- Tailwind CSS mediante CDN
-- Three.js mediante CDN
+- Tailwind CSS compilado localmente con Tailwind CLI
+- Three.js servido desde el recurso local `assets/three.min.js`
 - Google Fonts
 - Formspree para el formulario de contacto
 
