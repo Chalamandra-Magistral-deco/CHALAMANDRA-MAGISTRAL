@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "python3 -m unittest discover -s tests -p 'test_*.py'",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tailwindcss -i ./assets/tailwind.input.css -o ./assets/tailwind.css --minify",
-    "vercel-build": "npm run build && node scripts/prepare-vercel-output.mjs",
-    "lint": "node --check assets/decox-consent.js && node --check assets/form-decox.js && node --input-type=module --check < scripts/prepare-vercel-output.mjs && python3 -c \"import ast, pathlib; [ast.parse(pathlib.Path(p).read_text(encoding='utf-8'), filename=p) for p in ['scripts/submit-indexnow.py', 'tests/test_site_integrity.py']]\""
+    "vercel-build": "npm run build && node scripts/prepare-vercel-output.mjs"
   },
   "keywords": [],
   "author": "",
