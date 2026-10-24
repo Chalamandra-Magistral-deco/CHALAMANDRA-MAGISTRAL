@@ -167,8 +167,48 @@
         outline: 3px solid #fff; outline-offset: 3px;
       }
       @media(max-width:480px) {
-        #decox-consent-panel .decox-actions { flex-direction: column; }
-        #decox-consent-panel button { width: 100%; }
+        #decox-consent-panel {
+          padding: 10px 12px;
+          max-height: min(45vh, 320px);
+          overflow-y: auto;
+          overscroll-behavior: contain;
+        }
+        #decox-consent-panel h2 {
+          font-size: 14px;
+          line-height: 1.25;
+          margin-bottom: 4px;
+        }
+        #decox-consent-panel p {
+          font-size: 12px;
+          line-height: 1.4;
+          margin-bottom: 6px;
+        }
+        #decox-consent-panel .decox-actions {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+          margin-top: 8px;
+        }
+        #decox-consent-panel button {
+          width: 100%;
+          min-width: 0;
+          min-height: 40px;
+          padding: 8px 6px;
+          font-size: 11px;
+          line-height: 1.2;
+        }
+        #decox-consent-panel button[data-choice="all"] {
+          grid-column: 1 / -1;
+        }
+      }
+      @media(min-width:350px) and (max-width:480px) {
+        #decox-consent-panel .decox-actions {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        #decox-consent-panel button[data-choice="all"] {
+          grid-column: auto;
+        }
+        #decox-consent-panel button { padding: 8px 4px; }
       }
     `;
     document.head.appendChild(style);
@@ -180,12 +220,11 @@
     panel.hidden = !!readChoice();
 
     var title = document.createElement("h2");
-    title.textContent = "Privacidad en Chalamandra Magistral";
+    title.textContent = "Privacidad en DecoX";
 
     var copy = document.createElement("p");
     copy.append(
-      "Las tecnologías necesarias permiten el funcionamiento del sitio. ",
-      "Puedes elegir si también permites analítica o publicidad. "
+      "Necesarias para el sitio; analítica y publicidad son opcionales. "
     );
 
     var link = document.createElement("a");

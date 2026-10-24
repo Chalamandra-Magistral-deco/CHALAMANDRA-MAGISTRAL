@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
 @source "../index.html";
+@source "../ofertas.html";
 @source "../metodologias.html";
-@source "../assets/form-decox.js";
+@source "../arquetipo.html";
+@source "../contact.html";
+@source "../manifiesto.html";
+@source "../privacidad.html";
+@source "../terminos.html";
+@source "../thanks.html";
+@source "./form-decox.js";

@@ -7,6 +7,11 @@
       "source": "/sistema",
       "destination": "/contact.html?interes=mapa-srap",
       "permanent": false
+    },
+    {
+      "source": "/gracias.html",
+      "destination": "/thanks.html",
+      "permanent": false
     }
   ],
   "headers": [
