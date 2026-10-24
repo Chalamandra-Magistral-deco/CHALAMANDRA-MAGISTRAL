@@ -91,6 +91,24 @@
     setLoading(true);
     setStatus('sending', 'Enviando mensaje…');
 
+    // Fire-and-forget al motor Catedral (no bloquea ni interrumpe el flujo)
+    try {
+      fetch('https://chalamandra-leads.brasdefer1597.workers.dev/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name') || '',
+          email: data.get('email') || '',
+          type: data.get('type') || 'otro',
+          message: data.get('message') || '',
+          utm_source: data.get('utm_source') || '',
+          utm_medium: data.get('utm_medium') || '',
+          utm_campaign: data.get('utm_campaign') || '',
+          _gotcha: data.get('_gotcha') || '',
+        }),
+      }).catch(function () { /* silencioso */ });
+    } catch (e) { /* silencioso */ }
+
     fetch(form.action, {
       method: 'POST',
       body: data,
