@@ -4,9 +4,9 @@ import json
 import os
 import re
 import time
-import urllib.error
-import urllib.request
-import xml.etree.ElementTree as ET
+import requests
+from urllib.parse import urlparse
+import defusedxml.ElementTree as ET
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -29,8 +29,8 @@ user_agent = "Chalamandra-DecoX-IndexNow/1.0"
 
 def get_bytes(url):
     req = urllib.request.Request(url, headers={"User-Agent": user_agent})
-    with urllib.request.urlopen(req, timeout=20) as response:
-        return response.status, response.read()
+    resp = requests.get(req.full_url, headers=req.headers, timeout=20)
+        return response.status, resp.content
 
 
 def sitemap_urls(xml_body):
@@ -89,9 +89,9 @@ request = urllib.request.Request(
     method="POST",
 )
 try:
-    with urllib.request.urlopen(request, timeout=30) as response:
+    resp = requests.get(request.full_url, headers=request.headers, timeout=30)
         status = response.status
-        body = response.read().decode("utf-8", errors="replace")
+        body = resp.content.decode("utf-8", errors="replace")
 except urllib.error.HTTPError as exc:
     status = exc.code
     body = exc.read().decode("utf-8", errors="replace")
